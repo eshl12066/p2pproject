@@ -1,11 +1,9 @@
 package com.gg.microservicememberproviderhystrix.service;
 
 import com.gg.microservicecommon.entity.member.MembersDetail;
-import com.gg.microservicecommon.util.PageBaen;
-import com.github.pagehelper.Page;
+import com.gg.microservicecommon.util.Query;
 import org.springframework.stereotype.Service;
 
-import javax.management.Query;
 import java.util.List;
 
 /**
@@ -39,7 +37,7 @@ public interface MembersDetailService {
      *
      * @return 实例对象
      */
-    int insert(PageBaen pageBaen);
+    int insert(Query query);
 
     /**
      * 修改数据

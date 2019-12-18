@@ -1,8 +1,8 @@
 package com.gg.microservicememberproviderhystrix.controller;
 
 import com.gg.microservicecommon.entity.member.MembersDetail;
-import com.gg.microservicecommon.util.PageBaen;
 import com.gg.microservicecommon.util.PageUtils;
+import com.gg.microservicecommon.util.Query;
 import com.gg.microservicecommon.util.R;
 import com.gg.microservicememberproviderhystrix.service.MembersDetailService;
 import io.swagger.annotations.ApiOperation;
@@ -71,8 +71,8 @@ public class MembersDetailController {
     @RequestMapping("membersDetailAdd")
     @ApiOperation(value = "增加单个",notes = "增加&&")
     public R membersDetailAdd(@RequestParam Map<String,Object> params, HttpServletRequest req, HttpServletResponse resp,MembersDetail membersDetail) {
-        PageBaen pageBaen = new PageBaen(params);
-        int insert = this.membersDetailService.insert(pageBaen);
+        Query query = new Query(params);
+        int insert = this.membersDetailService.insert(query);
         return  insert > 0 ? R.ok("增加成功") : R.error(-1,"增加失败");
     }
 

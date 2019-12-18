@@ -1,10 +1,9 @@
 package com.gg.microservicememberproviderhystrix.service;
 
 import com.gg.microservicecommon.entity.member.MembersRealname;
-import com.gg.microservicecommon.util.PageBaen;
+import com.gg.microservicecommon.util.Query;
 import org.springframework.stereotype.Service;
 
-import javax.management.Query;
 import java.util.List;
 import java.util.Map;
 
@@ -39,7 +38,7 @@ public interface MembersRealnameService {
      *
      * @return 实例对象
      */
-    int insert(PageBaen pageBaen);
+    int insert(Query query);
 
     /**
      * 修改数据
@@ -59,14 +58,13 @@ public interface MembersRealnameService {
 
     Map<String,Object> queryByRLId(Integer id);
 
-    int updateState(PageBaen pageBaen);
+    int updateState(Query query);
 
     /**
      * 查看所有
-     * @param pageBaen
      * @return
      */
-    List<Map<String,Object>> getRAllPager(PageBaen pageBaen);
+    List<Map<String,Object>> getRAllPager(Query query);
 
     MembersRealname queryRnull(Integer members_id);
 

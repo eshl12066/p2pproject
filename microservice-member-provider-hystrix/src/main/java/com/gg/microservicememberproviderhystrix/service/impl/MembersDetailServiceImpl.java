@@ -1,13 +1,12 @@
 package com.gg.microservicememberproviderhystrix.service.impl;
 
 import com.gg.microservicecommon.entity.member.MembersDetail;
-import com.gg.microservicecommon.util.PageBaen;
+import com.gg.microservicecommon.util.Query;
 import com.gg.microservicememberproviderhystrix.dao.MembersDetailDao;
 import com.gg.microservicememberproviderhystrix.service.MembersDetailService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import javax.management.Query;
 import java.util.List;
 
 /**
@@ -50,8 +49,8 @@ public class MembersDetailServiceImpl implements MembersDetailService {
      * @return 实例对象
      */
     @Override
-    public int insert(PageBaen pageBaen) {
-        return   this.membersDetailDao.insert(pageBaen);
+    public int insert(Query query) {
+        return   this.membersDetailDao.insert(query);
     }
 
     /**

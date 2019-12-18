@@ -1,10 +1,9 @@
 package com.gg.microservicememberproviderhystrix.service;
 
 import com.gg.microservicecommon.entity.member.MembersMaterials;
-import com.gg.microservicecommon.util.PageBaen;
+import com.gg.microservicecommon.util.Query;
 import org.springframework.stereotype.Service;
 
-import javax.management.Query;
 import java.util.List;
 import java.util.Map;
 
@@ -39,7 +38,7 @@ public interface MembersMaterialsService {
      *
      * @return 实例对象
      */
-    int insert(PageBaen pageBaen);
+    int insert(Query query);
 
     /**
      * 修改数据
@@ -59,16 +58,15 @@ public interface MembersMaterialsService {
 
     /**
      * 模糊查
-     * @param pageBaen
      * @return
      */
-    List<Map<String,Object>> getCLAllPager(PageBaen pageBaen);
+    List<Map<String,Object>> getCLAllPager(Query query);
 
     /**
      * 修改状态
      * @return
      */
-    int updateState(PageBaen pageBaen);
+    int updateState(Query query);
     /**
      * 查询连表单个
      * @param id

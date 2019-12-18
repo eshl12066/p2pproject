@@ -1,10 +1,9 @@
 package com.gg.microservicememberproviderhystrix.dao;
 
 import com.gg.microservicecommon.entity.member.MembersRealname;
-import com.gg.microservicecommon.util.PageBaen;
+import com.gg.microservicecommon.util.Query;
 import org.apache.ibatis.annotations.Param;
 
-import javax.management.Query;
 import java.util.List;
 import java.util.Map;
 
@@ -47,7 +46,7 @@ public interface MembersRealnameDao {
      *
      * @return 影响行数
      */
-    int insert(PageBaen pageBaen);
+    int insert(Query query);
 
     /**
      * 修改数据
@@ -74,17 +73,15 @@ public interface MembersRealnameDao {
 
     /**
      * 修改状态
-     * @param pageBaen
      * @return
      */
-    int updateState(PageBaen pageBaen);
+    int updateState(Query query);
 
     /**
      * 查看所有
-     * @param pageBaen
      * @return
      */
-    List<Map<String,Object>> getRAllPager(PageBaen pageBaen);
+    List<Map<String,Object>> getRAllPager(Query query);
 
     /**
      *

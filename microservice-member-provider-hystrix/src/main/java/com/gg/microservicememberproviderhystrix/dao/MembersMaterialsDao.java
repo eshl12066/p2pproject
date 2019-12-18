@@ -1,10 +1,9 @@
 package com.gg.microservicememberproviderhystrix.dao;
 
 import com.gg.microservicecommon.entity.member.MembersMaterials;
-import com.gg.microservicecommon.util.PageBaen;
+import com.gg.microservicecommon.util.Query;
 import org.apache.ibatis.annotations.Param;
 
-import javax.management.Query;
 import java.util.List;
 import java.util.Map;
 
@@ -47,7 +46,7 @@ public interface MembersMaterialsDao {
      *
      * @return 影响行数
      */
-    int insert(PageBaen pageBaen);
+    int insert(Query query);
 
     /**
      * 修改数据
@@ -67,16 +66,15 @@ public interface MembersMaterialsDao {
 
     /**
      * 模糊查
-     * @param pageBaen
      * @return
      */
-    List<Map<String,Object>> getCLAllPager(PageBaen pageBaen);
+    List<Map<String,Object>> getCLAllPager(Query query);
 
     /**
      * 改变状态
      * @return
      */
-    int updateState(PageBaen pageBaen);
+    int updateState(Query query);
 
     /**
      * 连表单个查

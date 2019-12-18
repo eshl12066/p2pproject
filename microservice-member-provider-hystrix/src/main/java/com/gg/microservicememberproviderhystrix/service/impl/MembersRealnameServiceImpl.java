@@ -1,13 +1,12 @@
 package com.gg.microservicememberproviderhystrix.service.impl;
 
 import com.gg.microservicecommon.entity.member.MembersRealname;
-import com.gg.microservicecommon.util.PageBaen;
+import com.gg.microservicecommon.util.Query;
 import com.gg.microservicememberproviderhystrix.dao.MembersRealnameDao;
 import com.gg.microservicememberproviderhystrix.service.MembersRealnameService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import javax.management.Query;
 import java.util.List;
 import java.util.Map;
 
@@ -51,8 +50,8 @@ public class MembersRealnameServiceImpl implements MembersRealnameService {
      * @return 实例对象
      */
     @Override
-    public int insert(PageBaen pageBaen) {
-        return this.membersRealnameDao.insert(pageBaen);
+    public int insert(Query query) {
+        return this.membersRealnameDao.insert(query);
     }
 
     /**
@@ -84,13 +83,13 @@ public class MembersRealnameServiceImpl implements MembersRealnameService {
     }
 
     @Override
-    public int updateState(PageBaen pageBaen) {
-        return this.membersRealnameDao.updateState(pageBaen);
+    public int updateState(Query query) {
+        return this.membersRealnameDao.updateState(query);
     }
 
     @Override
-    public List<Map<String, Object>> getRAllPager(PageBaen pageBaen) {
-        return this.membersRealnameDao.getRAllPager(pageBaen);
+    public List<Map<String, Object>> getRAllPager(Query query) {
+        return this.membersRealnameDao.getRAllPager(query);
     }
 
     @Override

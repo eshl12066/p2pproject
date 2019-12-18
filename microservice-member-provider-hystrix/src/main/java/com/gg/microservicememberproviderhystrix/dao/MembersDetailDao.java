@@ -1,10 +1,9 @@
 package com.gg.microservicememberproviderhystrix.dao;
 
 import com.gg.microservicecommon.entity.member.MembersDetail;
-import com.gg.microservicecommon.util.PageBaen;
+import com.gg.microservicecommon.util.Query;
 import org.apache.ibatis.annotations.Param;
 
-import javax.management.Query;
 import java.util.List;
 
 /**
@@ -46,7 +45,7 @@ public interface MembersDetailDao {
      *
      * @return 影响行数
      */
-    int insert(PageBaen pageBaen);
+    int insert(Query query);
 
     /**
      * 修改数据

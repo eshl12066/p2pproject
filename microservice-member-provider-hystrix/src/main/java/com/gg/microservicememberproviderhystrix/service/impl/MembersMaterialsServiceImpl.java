@@ -1,13 +1,12 @@
 package com.gg.microservicememberproviderhystrix.service.impl;
 
 import com.gg.microservicecommon.entity.member.MembersMaterials;
-import com.gg.microservicecommon.util.PageBaen;
+import com.gg.microservicecommon.util.Query;
 import com.gg.microservicememberproviderhystrix.dao.MembersMaterialsDao;
 import com.gg.microservicememberproviderhystrix.service.MembersMaterialsService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import javax.management.Query;
 import java.util.List;
 import java.util.Map;
 
@@ -51,8 +50,8 @@ public class MembersMaterialsServiceImpl implements MembersMaterialsService {
      * @return 实例对象
      */
     @Override
-    public int insert(PageBaen pageBaen) {
-        return   this.membersMaterialsDao.insert(pageBaen);
+    public int insert(Query query) {
+        return   this.membersMaterialsDao.insert(query);
     }
 
     /**
@@ -79,13 +78,13 @@ public class MembersMaterialsServiceImpl implements MembersMaterialsService {
     }
 
     @Override
-    public List<Map<String, Object>> getCLAllPager(PageBaen pageBaen) {
-        return this.membersMaterialsDao.getCLAllPager(pageBaen);
+    public List<Map<String, Object>> getCLAllPager(Query query) {
+        return this.membersMaterialsDao.getCLAllPager(query);
     }
 
     @Override
-    public int updateState(PageBaen pageBaen) {
-        return this.membersMaterialsDao.updateState(pageBaen);
+    public int updateState(Query query) {
+        return this.membersMaterialsDao.updateState(query);
     }
 
 

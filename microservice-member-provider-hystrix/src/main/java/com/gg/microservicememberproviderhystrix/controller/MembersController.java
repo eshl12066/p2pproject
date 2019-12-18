@@ -1,10 +1,10 @@
 package com.gg.microservicememberproviderhystrix.controller;
 
+import com.gg.microservicecommon.util.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.util.StringUtils;
 import com.gg.microservicecommon.entity.member.Members;
-import com.gg.microservicecommon.util.PageBaen;
 import com.gg.microservicecommon.util.PageUtils;
 import com.gg.microservicecommon.util.R;
 import com.gg.microservicememberproviderhystrix.service.MembersService;
@@ -111,15 +111,15 @@ public class MembersController {
             String[] split1 = request.getParameter("stop").split("T");
             stop  = split1[0];
         }
-        PageBaen pageBaen = new PageBaen(params);
+        Query query = new Query(params);
         if(!StringUtils.isEmpty(start)){
-            pageBaen.put("start",start);
-            pageBaen.put("stop",stop);
+            query.put("start",start);
+            query.put("stop",stop);
         }
-        List<Map<String,Object>> list = this.membersService.getAllPager(pageBaen);
-        for (Map<String,Object> map1 : list) {
-            map1.put("audit_time",map1.get("audit_time").toString());
-        }
-        return new PageUtils(list,pageBaen.getTotal());
+        List<Map<String,Object>> list = this.membersService.getAllPager(query);
+//        for (Map<String,Object> map1 : list) {
+//            map1.put("audit_time",map1.get("audit_time").toString());
+//        }
+        return new PageUtils(list,query.getTotal());
     }
 }

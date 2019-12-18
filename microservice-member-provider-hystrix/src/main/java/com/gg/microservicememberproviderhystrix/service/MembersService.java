@@ -1,10 +1,9 @@
 package com.gg.microservicememberproviderhystrix.service;
 
 import com.gg.microservicecommon.entity.member.Members;
-import com.gg.microservicecommon.util.PageBaen;
+import com.gg.microservicecommon.util.Query;
 import org.springframework.stereotype.Service;
 
-import javax.management.Query;
 import java.util.List;
 import java.util.Map;
 
@@ -60,9 +59,8 @@ public interface MembersService {
 
     /**
      * 查询所有
-     * @param pageBaen
      * @return
      */
-    List<Map<String,Object>> getAllPager(PageBaen pageBaen);
+    List<Map<String,Object>> getAllPager(Query query);
 
 }

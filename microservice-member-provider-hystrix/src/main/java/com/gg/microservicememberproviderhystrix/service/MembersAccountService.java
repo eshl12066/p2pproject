@@ -1,5 +1,4 @@
 package com.gg.microservicememberproviderhystrix.service;
-
 import com.gg.microservicecommon.entity.member.MembersAccount;
 import org.springframework.stereotype.Service;
 

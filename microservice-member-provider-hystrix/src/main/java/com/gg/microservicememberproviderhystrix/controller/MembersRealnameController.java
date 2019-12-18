@@ -1,9 +1,9 @@
 package com.gg.microservicememberproviderhystrix.controller;
+import com.gg.microservicecommon.util.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.util.StringUtils;
 import com.gg.microservicecommon.entity.member.MembersRealname;
-import com.gg.microservicecommon.util.PageBaen;
 import com.gg.microservicecommon.util.PageUtils;
 import com.gg.microservicecommon.util.R;
 import com.gg.microservicememberproviderhystrix.service.MembersRealnameService;
@@ -11,7 +11,6 @@ import io.swagger.annotations.ApiOperation;
 import org.apache.commons.io.FileUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -78,8 +77,8 @@ public class MembersRealnameController {
     @RequestMapping("membersRealnameAdd")
     @ApiOperation(value = "增加单个",notes = "增加&&")
     public R membersRealnameAdd(@RequestParam Map<String,Object> params, HttpServletRequest req, HttpServletResponse resp) {
-        PageBaen pageBaen = new PageBaen(params);
-        return this.membersRealnameService.insert(pageBaen) > 0 ? R.ok("增加成功") : R.error(-1,"增加失败");
+        Query query = new Query(params);
+        return this.membersRealnameService.insert(query) > 0 ? R.ok("增加成功") : R.error(-1,"增加失败");
     }
     /**
      * 删除&&
@@ -119,8 +118,8 @@ public class MembersRealnameController {
     @RequestMapping("updateRState")
     @ApiOperation(value = "修改状态",notes = "修改状态,并加上审核人的备注与材料证明的合理得分")
     public R updateCState(@RequestParam Map<String,Object> params, HttpServletRequest request, HttpServletResponse response){
-        PageBaen pageBaen = new PageBaen(params);
-        return this.membersRealnameService.updateState(pageBaen) >0 ? R.ok("修改成功") : R.error(-1,"修改失败");
+        Query query = new Query(params);
+        return this.membersRealnameService.updateState(query) >0 ? R.ok("修改成功") : R.error(-1,"修改失败");
     }
 
     /**
@@ -141,16 +140,16 @@ public class MembersRealnameController {
             String[] split1 = request.getParameter("stop").split("T");
             stop  = split1[0];
         }
-        PageBaen pageBaen = new PageBaen(params);
+        Query query = new Query(params);
         if(!StringUtils.isEmpty(start)){
-            pageBaen.put("start",start);
-            pageBaen.put("stop",stop);
+            query.put("start",start);
+            query.put("stop",stop);
         }
-        List<Map<String,Object>> list = this.membersRealnameService.getRAllPager(pageBaen);
-        for (Map<String,Object> map1 : list) {
-            map1.put("apply_time",map1.get("apply_time").toString());
-        }
-        return new PageUtils(list,pageBaen.getTotal());
+        List<Map<String,Object>> list = this.membersRealnameService.getRAllPager(query);
+//        for (Map<String,Object> map1 : list) {
+//            map1.put("apply_time",map1.get("apply_time").toString());
+//        }
+        return new PageUtils(list,query.getTotal());
     }
 
 
