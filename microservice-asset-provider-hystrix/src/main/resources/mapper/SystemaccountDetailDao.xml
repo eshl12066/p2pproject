@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gg.microserviceassetproviderhystrix.dao.SystemaccountDetailDao">
+
+    <resultMap type="com.gg.microservicecommon.entity.asset.SystemaccountDetail" id="SystemaccountDetailMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="money" column="money" jdbcType="NUMERIC"/>
+        <result property="accountState" column="account_state" jdbcType="INTEGER"/>
+        <result property="accountRemark" column="account_remark" jdbcType="VARCHAR"/>
+        <result property="accountTime" column="account_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="SystemaccountDetailMap">
+        select
+          id, money, account_state, account_remark, account_time
+        from scp2p.systemaccount_detail
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="SystemaccountDetailMap">
+        select
+          id, money, account_state, account_remark, account_time
+        from scp2p.systemaccount_detail
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="SystemaccountDetailMap">
+        select
+          id, money, account_state, account_remark, account_time
+        from scp2p.systemaccount_detail
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="money != null">
+                and money = #{money}
+            </if>
+            <if test="accountState != null">
+                and account_state = #{accountState}
+            </if>
+            <if test="accountRemark != null and accountRemark != ''">
+                and account_remark = #{accountRemark}
+            </if>
+            <if test="accountTime != null">
+                and account_time = #{accountTime}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into scp2p.systemaccount_detail(money, account_state, account_remark, account_time)
+        values (#{money}, #{accountState}, #{accountRemark}, #{accountTime})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update scp2p.systemaccount_detail
+        <set>
+            <if test="money != null">
+                money = #{money},
+            </if>
+            <if test="accountState != null">
+                account_state = #{accountState},
+            </if>
+            <if test="accountRemark != null and accountRemark != ''">
+                account_remark = #{accountRemark},
+            </if>
+            <if test="accountTime != null">
+                account_time = #{accountTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from scp2p.systemaccount_detail where id = #{id}
+    </delete>
+
+</mapper>

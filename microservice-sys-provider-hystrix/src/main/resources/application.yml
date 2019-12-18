@@ -1,0 +1,107 @@
+---
+server:
+  port: 1004
+  context-path: /
+spring:
+  redis:
+    database: 0
+    host: 192.168.197.135
+    port: 6379
+    password: 123456
+    jedis:
+      pool:
+        max-active: 100
+        max-idle: 3
+        max-wait: -1
+        min-idle: 0
+    timeout: 1000
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/scp2p?useUnicode=true&characterEncoding=utf8
+    username: root
+    password: 123
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  application:
+    name: microservice-sys
+  profiles: provider-hystrix-1004
+
+eureka:
+  instance:
+    hostname: localhost
+    appname: microservice-sys
+    instance-id: microservice-sys:1004
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://eureka2001.gg.com:2001/eureka/,http://eureka2002.gg.com:2002/eureka/
+
+info:
+  groupId: com.gg.p2pproject
+  artifactId: microservice-sys-provider-hystrix-1004
+  version: 1.0-SNAPSHOT
+  userName: http://gg.com
+  phone: 123456
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 1500
+
+mybatis:
+  mapper-locations: classpath:mapper/*Dao.xml
+  type-aliases-package: com.gg.microservicecommon.sys.entity
+
+---
+server:
+  port: 1005
+  context-path: /
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/scp2p?useUnicode=true&characterEncoding=utf8
+    username: root
+    password: 123
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  application:
+    name: microservice-sys
+  profiles: provider-hystrix-1005
+
+eureka:
+  instance:
+    hostname: localhost
+    appname: microservice-sys
+    instance-id: microservice-sys:1005
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://eureka2001.gg.com:2001/eureka/,http://eureka2002.gg.com:2002/eureka/
+
+info:
+  groupId: com.gg.p2pproject
+  artifactId: microservice-sys-provider-hystrix-1005
+  version: 1.0-SNAPSHOT
+  userName: http://gg.com
+  phone: 123456
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 1500
+
+mybatis:
+  mapper-locations: classpath:mapper/*Dao.xml
+  type-aliases-package: com.gg.microservicecommon.sys.entity

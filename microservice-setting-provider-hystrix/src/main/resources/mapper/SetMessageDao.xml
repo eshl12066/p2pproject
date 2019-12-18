@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gg.microservicesettingproviderhystrix.dao.SetMessageDao">
+
+    <resultMap type="com.gg.microservicecommon.entity.setting.SetMessage" id="SetMessageMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="fromMessageId" column="from_message_id" jdbcType="INTEGER"/>
+        <result property="toMessageId" column="to_message_id" jdbcType="INTEGER"/>
+        <result property="messageContext" column="message_context" jdbcType="VARCHAR"/>
+        <result property="messageTitle" column="message_title" jdbcType="VARCHAR"/>
+        <result property="messageState" column="message_state" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultType="java.util.Map">
+        select a.*,b.name,c.username from scp2p.message a,members b,sys_user c
+        where a.from_message_id = c.userid and a.to_message_id = b.id and a.id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="SetMessageMap">
+        select
+          id, from_message_id, to_message_id, message_context, message_title, message_state
+        from scp2p.set_message
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="SetMessageMap">
+        select
+        id, from_message_id, to_message_id, message_context, message_title, message_state
+        from scp2p.set_message
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="fromMessageId != null">
+                and from_message_id = #{fromMessageId}
+            </if>
+            <if test="toMessageId != null">
+                and to_message_id = #{toMessageId}
+            </if>
+            <if test="messageContext != null and messageContext != ''">
+                and message_context = #{messageContext}
+            </if>
+            <if test="messageTitle != null and messageTitle != ''">
+                and message_title = #{messageTitle}
+            </if>
+            <if test="messageState != null">
+                and message_state = #{messageState}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into scp2p.set_message(from_message_id, to_message_id, message_context, message_title, message_state)
+        values (#{fromMessageId}, #{toMessageId}, #{messageContext}, #{messageTitle}, #{messageState})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update scp2p.set_message
+        <set>
+            <if test="fromMessageId != null">
+                from_message_id = #{fromMessageId},
+            </if>
+            <if test="toMessageId != null">
+                to_message_id = #{toMessageId},
+            </if>
+            <if test="messageContext != null and messageContext != ''">
+                message_context = #{messageContext},
+            </if>
+            <if test="messageTitle != null and messageTitle != ''">
+                message_title = #{messageTitle},
+            </if>
+            <if test="messageState != null">
+                message_state = #{messageState},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from scp2p.set_message where id = #{id}
+    </delete>
+
+
+    <select id="queryAllPager" resultType="java.util.Map">
+        select a.*,b.name,c.username from scp2p.set_message a,members b,sys_user c
+        <where>
+            a.from_message_id = c.userid and a.to_message_id = b.id
+            <if test="to_message_id != null and to_message_id !=''">
+                and a.to_message_id = #{to_message_id}
+            </if>
+            <if test="message_state != null and message_state !=''">
+                and a.message_state = #{message_state}
+            </if>
+            <if test="from_message != null and from_message !=''">
+                and c.username like concat(concat('%', #{from_message},'%')
+            </if>
+            <if test="to_message != null and to_message != ''">
+                and b.name like concat(concat('%', #{to_message},'%')
+            </if>
+        </where>
+    </select>
+
+</mapper>

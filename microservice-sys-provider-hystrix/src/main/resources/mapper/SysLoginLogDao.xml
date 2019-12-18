@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gg.microservicesysproviderhystrix.dao.SysLoginLogDao">
+
+    <resultMap type="com.gg.microservicecommon.entity.sys.SysLoginLog" id="SysLoginLogMap">
+        <result property="logId" column="log_id" jdbcType="INTEGER"/>
+        <result property="userId" column="user_id" jdbcType="INTEGER"/>
+        <result property="userName" column="user_name" jdbcType="VARCHAR"/>
+        <result property="userRole" column="user_role" jdbcType="VARCHAR"/>
+        <result property="content" column="content" jdbcType="VARCHAR"/>
+        <result property="type" column="type" jdbcType="VARCHAR"/>
+        <result property="remarks" column="remarks" jdbcType="VARCHAR"/>
+        <result property="tablename" column="tableName" jdbcType="VARCHAR"/>
+        <result property="resultValue" column="result_value" jdbcType="VARCHAR"/>
+        <result property="ip" column="ip" jdbcType="VARCHAR"/>
+        <result property="requestUrl" column="request_url" jdbcType="VARCHAR"/>
+        <result property="result" column="result" jdbcType="INTEGER"/>
+        <result property="exString" column="ex_string" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="SysLoginLogMap">
+        select
+          log_id, user_id, user_name, user_role, content, type, remarks, tableName, result_value, ip, request_url, result, ex_string
+        from scp2p.sys_login_log
+        where log_id = #{logId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="SysLoginLogMap">
+        select
+          log_id, user_id, user_name, user_role, content, type, remarks, tableName, result_value, ip, request_url, result, ex_string
+        from scp2p.sys_login_log
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="SysLoginLogMap">
+        select
+          log_id, user_id, user_name, user_role, content, type, remarks, tableName, result_value, ip, request_url, result, ex_string
+        from scp2p.sys_login_log
+        <where>
+            <if test="logId != null">
+                and log_id = #{logId}
+            </if>
+            <if test="userId != null">
+                and user_id = #{userId}
+            </if>
+            <if test="userName != null and userName != ''">
+                and user_name = #{userName}
+            </if>
+            <if test="userRole != null and userRole != ''">
+                and user_role = #{userRole}
+            </if>
+            <if test="content != null and content != ''">
+                and content = #{content}
+            </if>
+            <if test="type != null and type != ''">
+                and type = #{type}
+            </if>
+            <if test="remarks != null and remarks != ''">
+                and remarks = #{remarks}
+            </if>
+            <if test="tablename != null and tablename != ''">
+                and tableName = #{tablename}
+            </if>
+            <if test="resultValue != null and resultValue != ''">
+                and result_value = #{resultValue}
+            </if>
+            <if test="ip != null and ip != ''">
+                and ip = #{ip}
+            </if>
+            <if test="requestUrl != null and requestUrl != ''">
+                and request_url = #{requestUrl}
+            </if>
+            <if test="result != null">
+                and result = #{result}
+            </if>
+            <if test="exString != null and exString != ''">
+                and ex_string = #{exString}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="logId" useGeneratedKeys="true">
+        insert into scp2p.sys_login_log(user_id, user_name, user_role, content, type, remarks, tableName, result_value, ip, request_url, result, ex_string)
+        values (#{userId}, #{userName}, #{userRole}, #{content}, #{type}, #{remarks}, #{tablename}, #{resultValue}, #{ip}, #{requestUrl}, #{result}, #{exString})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update scp2p.sys_login_log
+        <set>
+            <if test="userId != null">
+                user_id = #{userId},
+            </if>
+            <if test="userName != null and userName != ''">
+                user_name = #{userName},
+            </if>
+            <if test="userRole != null and userRole != ''">
+                user_role = #{userRole},
+            </if>
+            <if test="content != null and content != ''">
+                content = #{content},
+            </if>
+            <if test="type != null and type != ''">
+                type = #{type},
+            </if>
+            <if test="remarks != null and remarks != ''">
+                remarks = #{remarks},
+            </if>
+            <if test="tablename != null and tablename != ''">
+                tableName = #{tablename},
+            </if>
+            <if test="resultValue != null and resultValue != ''">
+                result_value = #{resultValue},
+            </if>
+            <if test="ip != null and ip != ''">
+                ip = #{ip},
+            </if>
+            <if test="requestUrl != null and requestUrl != ''">
+                request_url = #{requestUrl},
+            </if>
+            <if test="result != null">
+                result = #{result},
+            </if>
+            <if test="exString != null and exString != ''">
+                ex_string = #{exString},
+            </if>
+        </set>
+        where log_id = #{logId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from scp2p.sys_login_log where log_id = #{logId}
+    </delete>
+
+</mapper>

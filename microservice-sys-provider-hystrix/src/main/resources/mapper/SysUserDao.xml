@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gg.microservicesysproviderhystrix.dao.SysUserDao">
+
+    <resultMap type="com.gg.microservicecommon.entity.sys.SysUser" id="SysUserMap">
+        <result property="userid" column="userid" jdbcType="INTEGER"/>
+        <result property="username" column="username" jdbcType="VARCHAR"/>
+        <result property="password" column="password" jdbcType="VARCHAR"/>
+        <result property="salt" column="salt" jdbcType="VARCHAR"/>
+        <result property="createdate" column="createdate" jdbcType="TIMESTAMP"/>
+        <result property="userstate" column="userstate" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="SysUserMap">
+        select
+          userid, username, password, salt, createdate, userstate
+        from scp2p.sys_user
+        where userid = #{userid}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="SysUserMap">
+        select
+          userid, username, password, salt, createdate, userstate
+        from scp2p.sys_user
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="SysUserMap">
+        select
+          userid, username, password, salt, createdate, userstate
+        from scp2p.sys_user
+        <where>
+            <if test="userid != null">
+                and userid = #{userid}
+            </if>
+            <if test="username != null and username != ''">
+                and username = #{username}
+            </if>
+            <if test="password != null and password != ''">
+                and password = #{password}
+            </if>
+            <if test="salt != null and salt != ''">
+                and salt = #{salt}
+            </if>
+            <if test="createdate != null">
+                and createdate = #{createdate}
+            </if>
+            <if test="userstate != null">
+                and userstate = #{userstate}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="userid" useGeneratedKeys="true">
+        insert into scp2p.sys_user(username, password, salt, createdate, userstate)
+        values (#{username}, #{password}, #{salt}, #{createdate}, #{userstate})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update scp2p.sys_user
+        <set>
+            <if test="username != null and username != ''">
+                username = #{username},
+            </if>
+            <if test="password != null and password != ''">
+                password = #{password},
+            </if>
+            <if test="salt != null and salt != ''">
+                salt = #{salt},
+            </if>
+            <if test="createdate != null">
+                createdate = #{createdate},
+            </if>
+            <if test="userstate != null">
+                userstate = #{userstate},
+            </if>
+        </set>
+        where userid = #{userid}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from scp2p.sys_user where userid = #{userid}
+    </delete>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="sysLogin" resultMap="SysUserMap">
+        select
+        userid, username, password, salt, createdate, userstate
+        from scp2p.sys_user
+        where  username = #{uname}
+    </select>
+
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="getUser" resultType="java.util.Map">
+        select
+        a.*,c.rolename,c.description
+        from scp2p.sys_user as a,scp2p.sys_user_role as b,scp2p.sys_role as c
+        where  a.userid = b.userid and b.roleid = c.roleid and  a.username = #{uname}
+    </select>
+
+    <select id="getRolesByUserId" resultType="java.lang.String" parameterType="java.lang.Integer">
+      select r.roleid from scp2p.sys_user u,scp2p.sys_user_role ur,scp2p.sys_role r
+        where u.userid = ur.userid and ur.roleid = r.roleid
+        and u.userid = #{userid}
+    </select>
+    <select id="getPersByUserId" resultType="java.lang.String" parameterType="java.lang.Integer">
+      select p.permission from scp2p.sys_user u,scp2p.sys_user_role ur,scp2p.sys_role_permission rp,scp2p.sys_permission p
+      where u.userid = ur.userid and ur.roleid = rp.roleid and rp.perid = p.perid
+      and u.userid = #{userid}
+    </select>
+    <!--分页查询-->
+    <select id="queryPager" resultMap="SysUserMap">
+        select
+        userid, username, password, salt, createdate, userstate
+        from scp2p.sys_user
+        <where>
+            <if test="userid != null">
+                and userid = #{userid}
+            </if>
+            <if test="username != null and username != ''">
+                and username like concat(concat('%',#{username}),'%')
+            </if>
+            <if test="password != null and password != ''">
+                and password = #{password}
+            </if>
+            <if test="salt != null and salt != ''">
+                and salt = #{salt}
+            </if>
+            <if test="createdate != null">
+                and createdate = #{createdate}
+            </if>
+            <if test="userstate != null and userstate != ''">
+                and userstate = #{userstate}
+            </if>
+        </where>
+
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="membersLogin" resultType="java.util.HashMap">
+        select
+        *
+        from scp2p.members
+        where  name = #{name} and password = #{password}
+    </select>
+
+    <!--增加会员注册功能-->
+    <insert id="addMembers" keyProperty="id">
+        insert into scp2p.members(name, password, certification_score, is_identity_authentication, members_state,)
+        values (#{name}, #{password}, #{certification_score}, #{is_identity_authentication}, #{memebers_state})
+    </insert>
+
+</mapper>

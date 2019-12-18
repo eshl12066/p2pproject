@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gg.microservicesettingproviderhystrix.dao.SetSettingDao">
+
+    <resultMap type="com.gg.microservicecommon.entity.setting.SetSetting" id="SetSettingMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="k" column="k" jdbcType="VARCHAR"/>
+        <result property="value" column="value" jdbcType="NUMERIC"/>
+        <result property="ktitle" column="ktitle" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultType="com.gg.microservicecommon.entity.setting.SetSetting">
+        select
+          id, k, value, ktitle
+        from scp2p.set_setting
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultType="com.gg.microservicecommon.entity.setting.SetSetting">
+        select
+          id, k, value, ktitle
+        from scp2p.set_setting
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultType="com.gg.microservicecommon.entity.setting.SetSetting">
+         select * from scp2p.set_setting
+    </select>
+
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into scp2p.set_setting(k, value, ktitle)
+        values (#{k}, #{value}, #{ktitle})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update scp2p.set_setting
+        <set>
+            <if test="k != null and k != ''">
+                k = #{k},
+            </if>
+            <if test="value != null">
+                value = #{value},
+            </if>
+            <if test="ktitle != null and ktitle != ''">
+                ktitle = #{ktitle},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from scp2p.set_setting where id = #{id}
+    </delete>
+
+    <!--修改所有数据-->
+    <update id="updateAll">
+        update scp2p.set_setting
+        <set>
+            title = CASE id
+            <if test="bid_max_limit != null and bid_max_limit != ''">
+                WHEN 1 THEN #{bid_max_limit}
+            </if>
+            <if test="bid_min_limit != null and bid_min_limit != ''">
+                WHEN 2 THEN #{bid_min_limit}
+            </if>
+            <if test="interest_rate != null and interest_rate != ''">
+                WHEN 3 THEN #{interest_rate}
+            </if>
+            <if test="min_limit != null and min_limit != ''">
+                WHEN 4 THEN #{min_limit}
+            </if>
+            <if test="ramaining_limit != null and ramaining_limit != ''">
+                WHEN 5 THEN #{ramaining_limit}
+            </if>
+            <if test="request_precedure_limit != null and request_precedure_limit != ''">
+                WHEN 6 THEN #{request_precedure_limit}
+            </if>
+            <if test="request_rate != null and request_rate != ''">
+                WHEN 7 THEN #{request_rate}
+            </if>
+            <if test="useable_max_limit != null and useable_max_limit != ''">
+                WHEN 8 THEN #{useable_max_limit}
+            </if>
+            <if test="useable_min_limit != null and useable_min_limit != ''">
+                WHEN 9 THEN #{useable_min_limit}
+            </if>
+            <if test="withdraw_precedure_limit != null and withdraw_precedure_limit != ''">
+                WHEN 10 THEN #{withdraw_precedure_limit}
+            </if>
+        </set>
+        END
+        WHERE id IN (1,2,3,4,5,6,7,8,9,10)
+    </update>
+
+
+</mapper>
+

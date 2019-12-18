@@ -1,0 +1,126 @@
+---
+server:
+  port: 1006
+  context-path: /
+spring:
+  redis:
+    database: 0
+    host: 192.168.214.134
+    port: 6379
+    password: 123456
+    jedis:
+      pool:
+        max-active: 100
+        max-idle: 3
+        max-wait: -1
+        min-idle: 0
+    timeout: 1000
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/scp2p?useUnicode=true&characterEncoding=utf8
+    username: root
+    password: 123
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  application:
+    name: microservice-asset
+  profiles: provider-hystrix-1006
+eureka:
+  instance:
+    hostname: localhost
+    appname: microservice-asset
+    instance-id: microservice-asset:1006
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://eureka2001.gg.com:2001/eureka/,http://eureka2002.gg.com:2002/eureka/
+
+info:
+  groupId: com.gg.p2pproject
+  artifactId: microservice-asset-provider-hystrix-1006
+  version: 1.0-SNAPSHOT
+  userName: http://gg.com
+  phone: 123456
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 1500
+
+mybatis:
+  mapper-locations: classpath:mapper/*Dao.xml
+  type-aliases-package: com.gg.microservicecommon.asset.entity
+
+---
+server:
+  port: 1007
+  context-path: /
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
+  redis:
+    database: 0
+    host: 192.168.214.134
+    port: 6379
+    password: 123456
+    jedis:
+      pool:
+        max-active: 100
+        max-idle: 3
+        max-wait: -1
+        min-idle: 0
+    timeout: 1000
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/scp2p?useUnicode=true&characterEncoding=utf8
+    username: root
+    password: 123
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  application:
+    name: microservice-asset
+  profiles: provider-hystrix-1007
+
+
+eureka:
+  instance:
+    hostname: localhost
+    appname: microservice-asset
+    instance-id: microservice-asset:1007
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://eureka2001.gg.com:2001/eureka/,http://eureka2002.gg.com:2002/eureka/
+
+info:
+  groupId: com.gg.p2pproject
+  artifactId: microservice-asset-provider-hystrix-1007
+  version: 1.0-SNAPSHOT
+  userName: http://gg.com
+  phone: 123456
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 1500
+
+
+mybatis:
+  mapper-locations: classpath:mapper/*Dao.xml
+  type-aliases-package: com.gg.microservicecommon.asset.entity
+
+

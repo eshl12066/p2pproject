@@ -1,0 +1,35 @@
+server:
+  port: 3001
+  context-path: /
+spring:
+  application:
+    name: microservice-zuul
+eureka:
+  instance:
+    instance-id: microservice-zuul:3001
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://eureka2001.gg.com:2001/eureka/,http://eureka2002.gg.com:2002/eureka/
+info:
+  groupId: com.gg.testSpringcloud
+  artifactId: microservice-zuul-3001
+  version: 1.0-SNAPSHOT
+  userName: http://gg.com
+  phone: 123456
+
+zuul:
+  routes:
+    assetServer.serviceId: microservice-asset
+    assetServer.path: /asset/**
+    businessServer.serviceId: microservice-business
+    businessServer.path: /business/**
+    memberServer.serviceId: microservice-member
+    memberServer.path: /member/**
+    settingServer.serviceId: microservice-setting
+    settingServer.path: /setting/**
+    sysServer.serviceId: microservice-sys
+    sysServer.path: /sys/**
+  ignored-services: "*"
+  prefix: /gg
+

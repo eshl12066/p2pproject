@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gg.microservicebusinessproviderhystrix.dao.BidRequestDao">
+
+    <resultMap type="com.gg.microservicecommon.entity.business.BidRequest" id="BidRequestMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="returnType" column="return_type" jdbcType="INTEGER"/>
+        <result property="bidRequestType" column="bid_request_type" jdbcType="INTEGER"/>
+        <result property="bidRequestState" column="bid_request_state" jdbcType="INTEGER"/>
+        <result property="bidRequestAmount" column="bid_request_amount" jdbcType="NUMERIC"/>
+        <result property="currentRate" column="current_rate" jdbcType="NUMERIC"/>
+        <result property="monthesReturn" column="monthes_return" jdbcType="INTEGER"/>
+        <result property="bidCount" column="bid_count" jdbcType="INTEGER"/>
+        <result property="totalRewardAmount" column="total_reward_amount" jdbcType="NUMERIC"/>
+        <result property="currentSum" column="current_sum" jdbcType="NUMERIC"/>
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="description" column="description" jdbcType="VARCHAR"/>
+        <result property="note" column="note" jdbcType="VARCHAR"/>
+        <result property="disableDate" column="disable_date" jdbcType="TIMESTAMP"/>
+        <result property="membersId" column="members_id" jdbcType="INTEGER"/>
+        <result property="disableDays" column="disable_days" jdbcType="INTEGER"/>
+        <result property="publishTime" column="publish_time" jdbcType="TIMESTAMP"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="auditTime" column="audit_time" jdbcType="TIMESTAMP"/>
+        <result property="applyTime" column="apply_time" jdbcType="TIMESTAMP"/>
+        <result property="auditorId" column="auditor_id" jdbcType="INTEGER"/>
+        <result property="newColumn" column="new_column" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--新增  贷款界面  所有列-->
+    <insert id="insertBidRequest" keyProperty="id" useGeneratedKeys="true">
+         insert into scp2p.bid_request(return_type, bid_request_type, bid_request_state,
+          bid_request_amount, current_rate, monthes_return, bid_count,
+           total_reward_amount, current_sum, title, description,
+            disable_date, members_id, disable_days, apply_time)
+        values (#{returnType}, #{bidRequestType}, 0,
+         #{bidRequestAmount}, #{currentRate}, #{monthesReturn}, 0,
+          #{totalRewardAmount}, 0, #{title}, #{description},
+           #{disableDate}, #{membersId}, #{disableDays}, #{applyTime})
+     </insert>
+    <!--增加贷款后，需要改变用户表 bid_request_id 的状态 为 1 -->
+    <update id="updateMembersId">
+        update scp2p.members set bid_request_id = 1 where id = #{membersId}
+    </update>
+
+    <!-- 查询 我的投标界面  -->
+    <select id="selectUserBidRequest" resultType="java.util.HashMap">
+        select b.*,(b.bid_request_amount - b.current_sum) as money,CAST(((b.current_sum * 100) / b.bid_request_amount) as decimal) as plan
+        from bid_request as b
+        where b.members_id = #{id}
+    </select>
+
+    <!-- 查询 投标界面 所有数据 可以分页 模糊查询 -->
+    <select id="queryAllBidRequest" resultMap="BidRequestMap">
+        select a.*,b.*,c.*
+        from bid as a ,bid_request as b,members as c
+        <where>
+            a.bid_request_id = b.bid_request and
+            a.members_id = c.id and
+            b.members_id = c.id
+        </where>
+    </select>
+
+    <!-- 查询 投标界面 单个投标  详情数据 -->
+    <select id="selectOneBidRequest" resultMap="BidRequestMap">
+        select a.*,b.*,c.*
+        from bid as a ,bid_request as b,members as c
+        <where>
+            a.bid_request_id = b.bid_request and
+            a.members_id = c.id and
+            b.members_id = c.id
+            <if test="id != null">
+                and id = #{id}
+            </if>
+        </where>
+    </select>
+    <!--查询单个-->
+    <select id="queryById" resultMap="BidRequestMap">
+        select
+          id, return_type, bid_request_type, bid_request_state, bid_request_amount, current_rate, monthes_return, bid_count, total_reward_amount, current_sum, title, description, note, disable_date, members_id, disable_days, publish_time, remark, audit_time, apply_time, auditor_id, new_column
+        from scp2p.bid_request
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="BidRequestMap">
+        select
+          id, return_type, bid_request_type, bid_request_state, bid_request_amount, current_rate, monthes_return, bid_count, total_reward_amount, current_sum, title, description, note, disable_date, members_id, disable_days, publish_time, remark, audit_time, apply_time, auditor_id, new_column
+        from scp2p.bid_request
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="BidRequestMap">
+        select
+          id, return_type, bid_request_type, bid_request_state, bid_request_amount, current_rate, monthes_return, bid_count, total_reward_amount, current_sum, title, description, note, disable_date, members_id, disable_days, publish_time, remark, audit_time, apply_time, auditor_id, new_column
+        from scp2p.bid_request
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="returnType != null">
+                and return_type = #{returnType}
+            </if>
+            <if test="bidRequestType != null">
+                and bid_request_type = #{bidRequestType}
+            </if>
+            <if test="bidRequestState != null">
+                and bid_request_state = #{bidRequestState}
+            </if>
+            <if test="bidRequestAmount != null">
+                and bid_request_amount = #{bidRequestAmount}
+            </if>
+            <if test="currentRate != null">
+                and current_rate = #{currentRate}
+            </if>
+            <if test="monthesReturn != null">
+                and monthes_return = #{monthesReturn}
+            </if>
+            <if test="bidCount != null">
+                and bid_count = #{bidCount}
+            </if>
+            <if test="totalRewardAmount != null">
+                and total_reward_amount = #{totalRewardAmount}
+            </if>
+            <if test="currentSum != null">
+                and current_sum = #{currentSum}
+            </if>
+            <if test="title != null and title != ''">
+                and title = #{title}
+            </if>
+            <if test="description != null and description != ''">
+                and description = #{description}
+            </if>
+            <if test="note != null and note != ''">
+                and note = #{note}
+            </if>
+            <if test="disableDate != null">
+                and disable_date = #{disableDate}
+            </if>
+            <if test="membersId != null">
+                and members_id = #{membersId}
+            </if>
+            <if test="disableDays != null">
+                and disable_days = #{disableDays}
+            </if>
+            <if test="publishTime != null">
+                and publish_time = #{publishTime}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="auditTime != null">
+                and audit_time = #{auditTime}
+            </if>
+            <if test="applyTime != null">
+                and apply_time = #{applyTime}
+            </if>
+            <if test="auditorId != null">
+                and auditor_id = #{auditorId}
+            </if>
+            <if test="newColumn != null">
+                and new_column = #{newColumn}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into scp2p.bid_request(return_type, bid_request_type, bid_request_state, bid_request_amount, current_rate, monthes_return, bid_count, total_reward_amount, current_sum, title, description, note, disable_date, members_id, disable_days, publish_time, remark, audit_time, apply_time, auditor_id, new_column)
+        values (#{returnType}, #{bidRequestType}, #{bidRequestState}, #{bidRequestAmount}, #{currentRate}, #{monthesReturn}, #{bidCount}, #{totalRewardAmount}, #{currentSum}, #{title}, #{description}, #{note}, #{disableDate}, #{membersId}, #{disableDays}, #{publishTime}, #{remark}, #{auditTime}, #{applyTime}, #{auditorId}, #{newColumn})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update scp2p.bid_request
+        <set>
+            <if test="returnType != null">
+                return_type = #{returnType},
+            </if>
+            <if test="bidRequestType != null">
+                bid_request_type = #{bidRequestType},
+            </if>
+            <if test="bidRequestState != null">
+                bid_request_state = #{bidRequestState},
+            </if>
+            <if test="bidRequestAmount != null">
+                bid_request_amount = #{bidRequestAmount},
+            </if>
+            <if test="currentRate != null">
+                current_rate = #{currentRate},
+            </if>
+            <if test="monthesReturn != null">
+                monthes_return = #{monthesReturn},
+            </if>
+            <if test="bidCount != null">
+                bid_count = #{bidCount},
+            </if>
+            <if test="totalRewardAmount != null">
+                total_reward_amount = #{totalRewardAmount},
+            </if>
+            <if test="currentSum != null">
+                current_sum = #{currentSum},
+            </if>
+            <if test="title != null and title != ''">
+                title = #{title},
+            </if>
+            <if test="description != null and description != ''">
+                description = #{description},
+            </if>
+            <if test="note != null and note != ''">
+                note = #{note},
+            </if>
+            <if test="disableDate != null">
+                disable_date = #{disableDate},
+            </if>
+            <if test="membersId != null">
+                members_id = #{membersId},
+            </if>
+            <if test="disableDays != null">
+                disable_days = #{disableDays},
+            </if>
+            <if test="publishTime != null">
+                publish_time = #{publishTime},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark = #{remark},
+            </if>
+            <if test="auditTime != null">
+                audit_time = #{auditTime},
+            </if>
+            <if test="applyTime != null">
+                apply_time = #{applyTime},
+            </if>
+            <if test="auditorId != null">
+                auditor_id = #{auditorId},
+            </if>
+            <if test="newColumn != null">
+                new_column = #{newColumn},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from scp2p.bid_request where id = #{id}
+    </delete>
+
+</mapper>

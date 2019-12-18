@@ -1,0 +1,29 @@
+---
+server:
+  port: 2001
+  context-path: /
+eureka:
+  instance:
+    hostname: eureka2001.gg.com
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      defaultZone: http://eureka2002.gg.com:2002/eureka/
+spring:
+  profiles: eureka2001
+---
+server:
+  port: 2002
+  context-path: /
+eureka:
+  instance:
+    hostname: eureka2002.gg.com
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      defaultZone: http://eureka2001.gg.com:2001/eureka/
+spring:
+  profiles: eureka2002
+

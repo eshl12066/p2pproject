@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gg.microserviceassetproviderhystrix.dao.MoneyWithdrawDao">
+
+    <resultMap type="com.gg.microservicecommon.entity.asset.MoneyWithdraw" id="MoneyWithdrawMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="state" column="state" jdbcType="INTEGER"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="auditTime" column="audit_time" jdbcType="TIMESTAMP"/>
+        <result property="applyTime" column="apply_time" jdbcType="TIMESTAMP"/>
+        <result property="auditorId" column="auditor_id" jdbcType="INTEGER"/>
+        <result property="membersId" column="members_id" jdbcType="INTEGER"/>
+        <result property="amount" column="amount" jdbcType="NUMERIC"/>
+        <result property="fee" column="fee" jdbcType="NUMERIC"/>
+        <result property="tradeCode" column="trade_code" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultType="com.gg.microservicecommon.entity.asset.MoneyWithdraw">
+        select
+          id, state, remark, audit_time, apply_time, auditor_id, members_id, amount, fee, trade_code
+        from scp2p.money_withdraw
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultType="com.gg.microservicecommon.entity.asset.MoneyWithdraw">
+        select
+          id, state, remark, audit_time, apply_time, auditor_id, members_id, amount, fee, trade_code
+        from scp2p.money_withdraw
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultType="com.gg.microservicecommon.entity.asset.MoneyWithdraw">
+        select
+        id, state, remark, audit_time, apply_time, auditor_id, members_id, amount, fee, trade_code
+        from scscp2p.money_withdraw
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="state != null">
+                and state = #{state}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="auditTime != null">
+                and audit_time = #{auditTime}
+            </if>
+            <if test="applyTime != null">
+                and apply_time = #{applyTime}
+            </if>
+            <if test="auditorId != null">
+                and auditor_id = #{auditorId}
+            </if>
+            <if test="membersId != null">
+                and members_id = #{membersId}
+            </if>
+            <if test="amount != null">
+                and amount = #{amount}
+            </if>
+            <if test="fee != null">
+                and fee = #{fee}
+            </if>
+            <if test="tradeCode != null and tradeCode != ''">
+                and trade_code = #{tradeCode}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into scp2p.money_withdraw(state, remark, audit_time, apply_time, auditor_id, members_id, amount, fee, trade_code)
+        values (#{state}, #{remark}, #{auditTime}, #{applyTime}, #{auditorId}, #{membersId}, #{amount}, #{fee}, #{tradeCode})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update money_withdraw
+        <set>
+            <if test="state != null">
+                state = #{state},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark = #{remark},
+            </if>
+            <if test="auditTime != null">
+                audit_time = #{auditTime},
+            </if>
+            <if test="applyTime != null">
+                apply_time = #{applyTime},
+            </if>
+            <if test="auditorId != null">
+                auditor_id = #{auditorId},
+            </if>
+            <if test="membersId != null">
+                members_id = #{membersId},
+            </if>
+            <if test="amount != null">
+                amount = #{amount},
+            </if>
+            <if test="fee != null">
+                fee = #{fee},
+            </if>
+            <if test="tradeCode != null and tradeCode != ''">
+                trade_code = #{tradeCode},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from scp2p.money_withdraw where id = #{id}
+    </delete>
+
+    <!--查找全部  用户用-->
+    <select id="ListBymemberPager" resultType="java.util.Map">
+        select a.*,c.username from money_withdraw a,sys_user c
+        <where>
+            a.members_id  = c.userid
+            <if test="null != id and id != '' ">
+                and a.members_id = #{id}
+            </if>
+            <if test="null != state and state != '' ">
+                and a.state = #{state}
+            </if>
+            <if test="null != name and name != ''">
+                and b.name like concat(concat('%',#{name}),'%')
+            </if>
+            <if test="start!=null and start!=''">
+                <![CDATA[
+                        and DATE_FORMAT(a.apply_time, '%Y-%m-%d') >=  DATE_FORMAT(#{start}, '%Y-%m-%d')
+                    ]]>
+            </if>
+            <if test="stop!=null and stop!=''">
+                <![CDATA[
+                            and DATE_FORMAT(a.apply_time, '%Y-%m-%d') <=  DATE_FORMAT(#{stop}, '%Y-%m-%d')
+                    ]]>
+            </if>
+            <if test="moneys!=null and moneys!=''">
+                <![CDATA[
+                        and a.amount >= #{moneys}
+                    ]]>
+            </if>
+            <if test="moneym!=null and moneym!=''">
+                <![CDATA[
+                            and a.amount <=  #{moneym}
+                    ]]>
+            </if>
+        </where>
+    </select>
+
+
+    <!--查找全部  管理员用-->
+    <select id="ListByuserPager" resultType="java.util.Map">
+        select a.*,b.name from money_withdraw a,members b
+        <where>
+            a.members_id = b.id
+            <if test="null != id and id != '' ">
+                and a.members_id = #{id}
+            </if>
+            <if test="null != state and state != '' ">
+                and a.state = #{state}
+            </if>
+            <if test="null != name and name != ''">
+                and b.name like concat(concat('%',#{name}),'%')
+            </if>
+            <if test="start!=null and start!=''">
+                <![CDATA[
+                        and DATE_FORMAT(a.apply_time, '%Y-%m-%d') >=  DATE_FORMAT(#{start}, '%Y-%m-%d')
+                    ]]>
+            </if>
+            <if test="stop!=null and stop!=''">
+                <![CDATA[
+                            and DATE_FORMAT(a.apply_time, '%Y-%m-%d') <=  DATE_FORMAT(#{stop}, '%Y-%m-%d')
+                    ]]>
+            </if>
+            <if test="moneys!=null and moneys!=''">
+                <![CDATA[
+                        and a.amount >= #{moneys}
+                    ]]>
+            </if>
+            <if test="moneym!=null and moneym!=''">
+                <![CDATA[
+                            and a.amount <=  #{moneym}
+                    ]]>
+            </if>
+        </where>
+    </select>
+
+</mapper>

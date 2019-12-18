@@ -1,0 +1,96 @@
+---
+server:
+  port: 1001
+  context-path: /
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/scp2p?useUnicode=true&characterEncoding=utf8
+    username: root
+    password: 123
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  application:
+    name: microservice-setting
+  profiles: provider-hystrix-1001
+
+eureka:
+  instance:
+    hostname: localhost
+    appname: microservice-setting
+    instance-id: microservice-setting:1001
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://eureka2001.gg.com:2001/eureka/,http://eureka2002.gg.com:2002/eureka/
+
+info:
+  groupId: com.gg.p2pproject
+  artifactId: microservice-setting-provider-hystrix-1001
+  version: 1.0-SNAPSHOT
+  userName: http://gg.com
+  phone: 123456
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 1500
+
+mybatis:
+  mapper-locations: classpath:mapper/*Dao.xml
+  type-aliases-package: com.gg.microservicecommon.setting.entity
+
+---
+server:
+  port: 1002
+  context-path: /
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/scp2p?useUnicode=true&characterEncoding=utf8
+    username: root
+    password: 123
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  application:
+    name: microservice-setting
+  profiles: provider-hystrix-1002
+
+eureka:
+  instance:
+    hostname: localhost
+    appname: microservice-setting
+    instance-id: microservice-setting:1002
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://eureka2001.gg.com:2001/eureka/,http://eureka2002.gg.com:2002/eureka/
+
+info:
+  groupId: com.gg.p2pproject
+  artifactId: microservice-setting-provider-hystrix-1002
+  version: 1.0-SNAPSHOT
+  userName: http://gg.com
+  phone: 123456
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 1500
+
+mybatis:
+  mapper-locations: classpath:mapper/*Dao.xml
+  type-aliases-package: com.gg.microservicecommon.setting.entity
+

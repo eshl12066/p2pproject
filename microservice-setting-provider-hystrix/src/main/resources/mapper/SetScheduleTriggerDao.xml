@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gg.microservicesettingproviderhystrix.dao.SetScheduleTriggerDao">
+
+    <resultMap type="com.gg.microservicecommon.entity.setting.SetScheduleTrigger" id="SetScheduleTriggerMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="cron" column="cron" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="jobName" column="job_name" jdbcType="VARCHAR"/>
+        <result property="jobGroup" column="job_group" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="SetScheduleTriggerMap">
+        select
+          id, cron, status, job_name, job_group
+        from scp2p.set_schedule_trigger
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="SetScheduleTriggerMap">
+        select
+          id, cron, status, job_name, job_group
+        from scp2p.set_schedule_trigger
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="SetScheduleTriggerMap">
+        select
+          id, cron, status, job_name, job_group
+        from scp2p.set_schedule_trigger
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="cron != null and cron != ''">
+                and cron = #{cron}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="jobName != null and jobName != ''">
+                and job_name = #{jobName}
+            </if>
+            <if test="jobGroup != null and jobGroup != ''">
+                and job_group = #{jobGroup}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into scp2p.set_schedule_trigger(cron, status, job_name, job_group)
+        values (#{cron}, #{status}, #{jobName}, #{jobGroup})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update scp2p.set_schedule_trigger
+        <set>
+            <if test="cron != null and cron != ''">
+                cron = #{cron},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="jobName != null and jobName != ''">
+                job_name = #{jobName},
+            </if>
+            <if test="jobGroup != null and jobGroup != ''">
+                job_group = #{jobGroup},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from scp2p.set_schedule_trigger where id = #{id}
+    </delete>
+
+</mapper>
