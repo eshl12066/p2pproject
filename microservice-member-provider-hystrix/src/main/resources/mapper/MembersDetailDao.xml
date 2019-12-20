@@ -9,7 +9,7 @@
         <result property="phone" column="phone" jdbcType="VARCHAR"/>
         <result property="sex" column="sex" jdbcType="VARCHAR"/>
         <result property="myselfBackground" column="myself_background" jdbcType="VARCHAR"/>
-        <result property="monthlyIncome" column="monthly_income" jdbcType="NUMERIC"/>
+        <result property="monthlyIncome" column="monthly_income" jdbcType="VARCHAR"/>
         <result property="maritalStatus" column="marital_status" jdbcType="VARCHAR"/>
         <result property="children" column="children" jdbcType="VARCHAR"/>
         <result property="house" column="house" jdbcType="VARCHAR"/>
@@ -55,7 +55,7 @@
             <if test="myselfBackground != null and myselfBackground != ''">
                 and myself_background = #{myselfBackground}
             </if>
-            <if test="monthlyIncome != null">
+            <if test="monthlyIncome != null and monthlyIncome != ''">
                 and monthly_income = #{monthlyIncome}
             </if>
             <if test="maritalStatus != null and maritalStatus != ''">
@@ -95,7 +95,7 @@
             <if test="myselfBackground != null and myselfBackground != ''">
                 myself_background = #{myselfBackground},
             </if>
-            <if test="monthlyIncome != null">
+            <if test="monthlyIncome != null and monthlyIncome != ''">
                 monthly_income = #{monthlyIncome},
             </if>
             <if test="maritalStatus != null and maritalStatus != ''">
@@ -117,6 +117,6 @@
     </delete>
 
     <select id="queryDnull" resultMap="MembersDetailMap">
-        select * from members_detail where members_id is null and id=#{id}
+        select * from scp2p.members_detail where members_id is null and id=#{id}
     </select>
 </mapper>

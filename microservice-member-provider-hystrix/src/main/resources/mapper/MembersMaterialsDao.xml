@@ -117,7 +117,7 @@
     </delete>
     <!--me-->
     <select id="getCLAllPager" resultType="java.util.HashMap">
-        select a.name,a.certification_score as yscore ,b.* from members as a ,members_materials b
+        select a.name,a.certification_score as yscore ,b.* from scp2p.members as a ,scp2p.members_materials b
         <where>
             a.id = b.members_id
             <if test="state !=null and state !=''">
@@ -138,7 +138,7 @@
 
     <!--修改申请状态-->
     <update id="updateState">
-        update members_materials
+        update scp2p.members_materials
         <set>
             <if test="state != null and state != ''">
                 state = #{state},
@@ -158,11 +158,11 @@
 
     <!--查询单条-->
     <select id="queryByCLId" resultType="java.util.Map">
-         select a.name ,b.* from members a ,members_materials b
+         select a.name ,b.* from scp2p.members a ,scp2p.members_materials b
         where a.id = b.members_id and b.id = #{id}
     </select>
 
     <select id="queryMnull" resultMap="MembersMaterialsMap">
-        select * from members_materials where members_id is null and id=#{id}
+        select * from scp2p.members_materials where members_id is null and id=#{id}
     </select>
 </mapper>

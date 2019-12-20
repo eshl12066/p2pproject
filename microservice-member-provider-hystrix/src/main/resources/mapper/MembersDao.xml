@@ -97,8 +97,8 @@
     <!--me-->
     <!--查询所有-->
     <select id="getAllPager" resultType="java.util.Map">
-        select a.*,b.* from members a,
-        members_realname b
+        select a.*,b.* from scp2p.members a,
+        scp2p.members_realname b
         <where>
             a.id = b.id  AND b.state != 1
             <if test="state !=null and state !=''">

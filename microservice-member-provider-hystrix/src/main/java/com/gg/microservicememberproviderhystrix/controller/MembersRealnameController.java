@@ -180,10 +180,10 @@ public class MembersRealnameController {
             String fileName = date + name + "." + type;
             System.out.println("新文件名称：" + fileName);
             //上传图片
-            FileUtils.copyInputStreamToFile(picture.getInputStream(),new File("D://upload/"+fileName));
+            FileUtils.copyInputStreamToFile(picture.getInputStream(),new File("E:/SpringCloud/p2pproject/microservice-member-provider-hystrix/src/main/resources/static/img/"+fileName));
             //图片上传成功返回图片访问地址
             R r = R.ok("图片上传成功");
-            r.put("path", "/upload/" + fileName );
+            r.put("path", "http://localhost:3001/gg/member/img/" + fileName );
             return r;
         } catch (IOException e) {
             return R.error("上传失败");
