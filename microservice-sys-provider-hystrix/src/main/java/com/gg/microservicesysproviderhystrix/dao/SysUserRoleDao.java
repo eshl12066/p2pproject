@@ -1,6 +1,6 @@
 package com.gg.microservicesysproviderhystrix.dao;
 
-import com.gg.microservicecommon.entity.sys.Query;
+import com.gg.microservicecommon.util.Query;
 import com.gg.microservicecommon.entity.sys.SysUserRole;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;

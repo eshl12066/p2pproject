@@ -1,6 +1,6 @@
 package com.gg.microservicesysproviderhystrix.controller;
 
-import com.gg.microservicecommon.entity.sys.Query;
+import com.gg.microservicecommon.util.Query;
 import com.gg.microservicecommon.entity.sys.SysUserRole;
 import com.gg.microservicecommon.util.PageUtils;
 import com.gg.microservicecommon.util.R;
@@ -120,7 +120,6 @@ public class SysUserRoleController {
 
         Query query = new Query(params);
         List<Map<String, Object>> list = this.sysUserRoleService.bidRequestPager(query);
-
         return new PageUtils(list,query.getTotal());
     }
     /**

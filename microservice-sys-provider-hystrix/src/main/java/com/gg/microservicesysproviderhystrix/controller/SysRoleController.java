@@ -1,6 +1,6 @@
 package com.gg.microservicesysproviderhystrix.controller;
 
-import com.gg.microservicecommon.entity.sys.Query;
+import com.gg.microservicecommon.util.Query;
 import com.gg.microservicecommon.entity.sys.SysRole;
 import com.gg.microservicecommon.util.PageUtils;
 import com.gg.microservicecommon.util.R;

@@ -1,9 +1,8 @@
 package com.gg.microservicesysproviderhystrix.controller;
 
 import com.gg.microservicecommon.entity.sys.*;
-import com.gg.microservicecommon.entity.sys.Query;
+import com.gg.microservicecommon.util.Query;
 import com.gg.microservicecommon.util.*;
-import com.gg.microservicesysproviderhystrix.annotation.Log;
 import com.gg.microservicesysproviderhystrix.service.SysRoleService;
 import com.gg.microservicesysproviderhystrix.service.SysUserService;
 import io.jsonwebtoken.Claims;
@@ -62,7 +61,7 @@ public class SysUserController {
      */
     @RequestMapping("login")
     @ApiOperation(value = "登录",notes = "正规途径登录访问")
-    @Log(content = "后台主界面登录",type = "登录",tableName = "sys_user",role = "-1")
+//    @Log(content = "后台主界面登录",type = "登录",tableName = "sys_user",role = "-1")
     public R login(@RequestParam Map<String,Object> params, HttpServletRequest req , HttpServletResponse resp ) {
         //一、要想判断登录，首先要判断验证码是否登陆成功
         //获取用户传过来的验证码
@@ -182,7 +181,7 @@ public class SysUserController {
      */
     @RequestMapping("addMembers")
     @ApiOperation(value = "增加会员",notes = "增加会员")
-    public R addMembers(@RequestParam Map<String,Object> params, HttpServletRequest req, HttpServletResponse resp,SysUser sysUser) {
+    public R addMembers(@RequestParam Map<String,Object> params, HttpServletRequest req, HttpServletResponse resp, SysUser sysUser) {
 
         Map<String,Object> param = new HashMap<>();
         param.putAll(params);

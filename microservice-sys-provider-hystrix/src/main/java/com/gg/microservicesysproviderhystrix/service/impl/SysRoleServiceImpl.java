@@ -1,7 +1,8 @@
 package com.gg.microservicesysproviderhystrix.service.impl;
 
-import com.gg.microservicecommon.entity.sys.Query;
+import com.gg.microservicecommon.util.Query;
 import com.gg.microservicecommon.entity.sys.SysRole;
+import com.gg.microservicecommon.util.Query;
 import com.gg.microservicesysproviderhystrix.dao.SysRoleDao;
 import com.gg.microservicesysproviderhystrix.service.SysRoleService;
 import org.springframework.stereotype.Service;

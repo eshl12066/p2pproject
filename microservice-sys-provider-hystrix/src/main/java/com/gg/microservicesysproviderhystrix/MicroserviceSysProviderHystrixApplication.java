@@ -23,7 +23,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 //开启切面自动代理
 @EnableAspectJAutoProxy
 //开启erueka客户端
-@EntityScan("com.gg.*.*")
 @EnableEurekaClient
 @SpringBootApplication
 public class MicroserviceSysProviderHystrixApplication {

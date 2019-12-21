@@ -5,7 +5,7 @@ server:
 spring:
   redis:
     database: 0
-    host: 192.168.197.135
+    host: 192.168.183.151
     port: 6379
     password: 123456
     jedis:
@@ -21,10 +21,6 @@ spring:
     url: jdbc:mysql://localhost:3306/scp2p?useUnicode=true&characterEncoding=utf8
     username: root
     password: 123
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
   application:
     name: microservice-sys
   profiles: provider-hystrix-1004
@@ -58,21 +54,36 @@ mybatis:
   mapper-locations: classpath:mapper/*Dao.xml
   type-aliases-package: com.gg.microservicecommon.sys.entity
 
+#分页
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
 ---
 server:
   port: 1005
   context-path: /
 spring:
+  redis:
+    database: 0
+    host: 192.168.183.151
+    port: 6379
+    password: 123456
+    jedis:
+      pool:
+        max-active: 100
+        max-idle: 3
+        max-wait: -1
+        min-idle: 0
+    timeout: 1000
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/scp2p?useUnicode=true&characterEncoding=utf8
     username: root
     password: 123
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
   application:
     name: microservice-sys
   profiles: provider-hystrix-1005
@@ -105,3 +116,10 @@ hystrix:
 mybatis:
   mapper-locations: classpath:mapper/*Dao.xml
   type-aliases-package: com.gg.microservicecommon.sys.entity
+
+#分页
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
