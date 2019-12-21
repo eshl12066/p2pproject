@@ -73,7 +73,7 @@
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
         insert into scp2p.members_materials(state, remark, audit_time, apply_time, auditor_id, members_id, score, file, image)
-        values (#{state}, #{remark}, #{auditTime}, #{applyTime}, #{auditorId}, #{membersId}, #{score}, #{file}, #{image})
+        values (#{state}, #{remark}, #{audit_time}, #{apply_time}, #{auditor_id}, #{members_id}, #{score}, #{file}, #{image})
     </insert>
 
     <!--通过主键修改数据-->

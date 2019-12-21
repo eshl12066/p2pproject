@@ -89,7 +89,7 @@
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
         insert into scp2p.members_realname(realname, sex, born_date, id_number, address, state, image1, image2, remark, audit_time, apply_time, auditor_id, members_id)
-        values (#{realname}, #{sex}, #{bornDate}, #{idNumber}, #{address}, #{state}, #{image1}, #{image2}, #{remark}, #{auditTime}, #{applyTime}, #{auditorId}, #{membersId})
+        values (#{realname}, #{sex}, #{born_date}, #{id_number}, #{address}, #{state}, #{image1}, #{image2}, #{remark}, #{audit_time}, #{apply_time}, #{auditor_id}, #{members_id})
     </insert>
 
     <!--通过主键修改数据-->
