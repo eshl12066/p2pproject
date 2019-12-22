@@ -62,6 +62,12 @@ public interface BidService {
     int bidAdd(Bid bid);
 
     /**
+     * 修改投标数据
+     */
+    int updateBid(Bid bid);
+
+
+    /**
      * 通过ID查询单条数据
      *
      * @param id 主键

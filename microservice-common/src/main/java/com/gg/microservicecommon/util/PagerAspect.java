@@ -43,7 +43,6 @@ public class PagerAspect {
             query.setTotal(pageInfo.getTotal());
         }
 
-        System.out.println("query.getTotal()"+query.getTotal());
         return proceed;
     }
 

@@ -53,6 +53,10 @@ public interface BidDao {
      */
     int bidAdd(Bid bid);
 
+    /**
+     * 修改投标数据
+     */
+    int updateBid(Bid bid);
 
     /**
      * 用户的投标界面

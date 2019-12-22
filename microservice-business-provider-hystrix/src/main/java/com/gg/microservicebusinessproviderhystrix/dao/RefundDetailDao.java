@@ -69,6 +69,8 @@ public interface RefundDetailDao {
 
     List<Map<String, Object>> selectrefd(Query query);
 
+    Map selectrefd(@Param("id") Integer id);
+
 
 // <!--根据借款表id查询还款月数-->
     int selecthkys(@Param("bid_request_id") Integer bid_request_id);

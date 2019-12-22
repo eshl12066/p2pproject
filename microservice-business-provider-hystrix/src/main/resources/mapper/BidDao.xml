@@ -70,7 +70,7 @@
     <!--    __________________________________LCL___________________________________________________________-->
     <!-- 查询 投标界面 所有数据 可以分页 模糊查询 -->
     <select id="queryAllPager" resultType="java.util.HashMap">
-        select b.*,c.name,(b.bid_request_amount - b.current_sum) as money,CAST(((b.current_sum * 100) / b.bid_request_amount) as decimal) as plan
+        select b.*,c.name,b.note,(b.bid_request_amount - b.current_sum) as money,CAST(((b.current_sum * 100) / b.bid_request_amount) as decimal) as plan
         from bid_request as b,members as c
         <where>
             b.members_id = c.id
@@ -125,10 +125,33 @@
         </where>
     </select>
     <!--用户登录后，进行投标  新增  投标界面  所有列-->
-    <insert id="bidAdd" keyProperty="id" useGeneratedKeys="true">
+    <insert id="bidAdd" keyColumn="id" useGeneratedKeys="true">
         insert into scp2p.bid(available_amount,bid_request_id,members_id,bid_time)
         values (#{availableAmount}, #{bidRequestId}, #{membersId}, #{bidTime})
     </insert>
+
+    <!--用户登录后，进行投标 -->
+    <update id="updateBid">
+        update scp2p.bid
+        <set>
+            <if test="availableAmount != null">
+                available_amount = #{availableAmount},
+            </if>
+            <if test="bidRequestId != null">
+                bid_request_id = #{bidRequestId},
+            </if>
+            <if test="membersId != null">
+                members_id = #{membersId},
+            </if>
+            <if test="bid_time != null">
+                bid_time = #{bidTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+
+
     <!-- 查询 投标界面 单个投标信息查询  详情数据 -->
     <select id="selectOne" resultType="java.util.HashMap">
         select b.*,c.name,(b.bid_request_amount - b.current_sum) as money,CAST(((b.current_sum * 100) / b.bid_request_amount) as decimal) as plan
@@ -211,16 +234,6 @@
     <select id="selectMembersById" resultType="java.util.Map">
          select * from members where id = #{id}
     </select>
-
-
-
-
-
-
-
-
-
-
 
 
 

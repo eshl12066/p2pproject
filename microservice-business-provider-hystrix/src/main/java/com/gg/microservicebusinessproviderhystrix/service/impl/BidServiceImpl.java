@@ -87,6 +87,14 @@ public class BidServiceImpl implements BidService {
         int i = this.bidDao.bidAdd(bid);
         return i;
     }
+    /**
+     * 修改投标数据
+     */
+    @Override
+    public int updateBid(Bid bid) {
+        int i = this.bidDao.updateBid(bid);
+        return i;
+    }
 
 
     /**

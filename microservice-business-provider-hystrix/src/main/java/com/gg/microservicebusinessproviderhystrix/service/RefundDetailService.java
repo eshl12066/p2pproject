@@ -64,6 +64,9 @@ public interface RefundDetailService {
     List<Map<String, Object>> selectrefd(Query query);
 
 
+    Map selectrefd( Integer id);
+
+
     // <!--根据借款表id查询还款月数-->
     int selecthkys(Integer bid_request_id);
 

@@ -233,4 +233,31 @@ public class BidRequest implements Serializable {
         this.newColumn = newColumn;
     }
 
+    @Override
+    public String toString() {
+        return "BidRequest{" +
+                "id=" + id +
+                ", returnType=" + returnType +
+                ", bidRequestType=" + bidRequestType +
+                ", bidRequestState=" + bidRequestState +
+                ", bidRequestAmount=" + bidRequestAmount +
+                ", currentRate=" + currentRate +
+                ", monthesReturn=" + monthesReturn +
+                ", bidCount=" + bidCount +
+                ", totalRewardAmount=" + totalRewardAmount +
+                ", currentSum=" + currentSum +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", note='" + note + '\'' +
+                ", disableDate=" + disableDate +
+                ", membersId=" + membersId +
+                ", disableDays=" + disableDays +
+                ", publishTime=" + publishTime +
+                ", remark='" + remark + '\'' +
+                ", auditTime=" + auditTime +
+                ", applyTime=" + applyTime +
+                ", auditorId=" + auditorId +
+                ", newColumn=" + newColumn +
+                '}';
+    }
 }

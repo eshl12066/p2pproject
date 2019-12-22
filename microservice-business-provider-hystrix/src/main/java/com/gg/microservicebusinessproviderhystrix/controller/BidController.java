@@ -66,6 +66,7 @@ public class BidController {
             m.put("disable_date",m.get("disable_date").toString());//投标截止日期 转格式
             m.get("current_rate");
             m.get("bid_request_amount");
+            m.get("note");
             if(Double.parseDouble(m.get("money")+"")==0.00){
                 m.put("money","已满标");
             }
@@ -135,12 +136,13 @@ public class BidController {
      * @param resp 全局的respons相应
      * @return
      */
-    @RequestMapping("bidAdd")
+    @RequestMapping("updateBid")
     @ApiOperation(value = "增加单个",notes = "增加投标表,修改借款表，修改用户表")
     public R bidAdd(@RequestParam Map<String,Object> params, HttpServletRequest req, HttpServletResponse resp, Bid bid,BidRequest bidRequest) {
 
         //投标表的增加
         Date date = new Date();
+        bid.setId(bid.getId());
         bid.setAvailableAmount(bid.getAvailableAmount());
         bid.setBidRequestId(bid.getBidRequestId());
         bid.setMembersId(bid.getMembersId());
@@ -148,18 +150,31 @@ public class BidController {
         bid.setBidTime(date);
         int i = this.bidService.bidAdd(bid);
 
+//        //修改借贷表
+//        bidRequest.setId(bid.getBidRequestId());
+//        System.out.println(bidRequest.getId());
+//        bidRequest.setBidCount(bidRequest.getBidCount()+1);//投标人数 +1
+//        bidRequest.setCurrentSum(bidRequest.getCurrentSum()+bid.getAvailableAmount());//借贷表的当前投资总数 增加
+//        if(bidRequest.getBidRequestAmount() == bidRequest.getCurrentSum()){
+//            bidRequest.setBidRequestState(3);
+//        }else{
+//            bidRequest.setBidRequestState(2);
+//        }
+//        BidRequest update = this.bidRequestService.update(bidRequest);
+        return i > 0 ? R.ok("增加成功") : R.error(-1,"增加失败");
+    }
+
+    @RequestMapping("bidggg")
+    @ApiOperation(value = "增加单个",notes = "增加投标表,修改借款表，修改用户表")
+    public void bidggg(@RequestParam Map<String,Object> params, HttpServletRequest req, HttpServletResponse resp, Bid bid,BidRequest bidRequest) {
         //修改借贷表
         bidRequest.setId(bid.getBidRequestId());
         bidRequest.setBidCount(bidRequest.getBidCount()+1);//投标人数 +1
         bidRequest.setCurrentSum(bidRequest.getCurrentSum()+bid.getAvailableAmount());//借贷表的当前投资总数 增加
-        if(bidRequest.getBidRequestAmount() == bidRequest.getCurrentSum()){
+        if(bidRequest.getBidRequestAmount().compareTo(bidRequest.getCurrentSum()) == 0){
             bidRequest.setBidRequestState(3);
-        }else{
-            bidRequest.setBidRequestState(2);
         }
         BidRequest update = this.bidRequestService.update(bidRequest);
-        System.out.println(bidRequest.toString());
-        return i > 0 ? R.ok("增加成功") : R.error(-1,"增加失败");
     }
 
 
