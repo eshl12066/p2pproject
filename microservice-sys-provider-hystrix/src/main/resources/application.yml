@@ -58,6 +58,12 @@ mybatis:
   mapper-locations: classpath:mapper/*Dao.xml
   type-aliases-package: com.gg.microservicecommon.sys.entity
 
+#分页
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
 ---
 server:
   port: 1005
@@ -105,3 +111,9 @@ hystrix:
 mybatis:
   mapper-locations: classpath:mapper/*Dao.xml
   type-aliases-package: com.gg.microservicecommon.sys.entity
+#分页
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql

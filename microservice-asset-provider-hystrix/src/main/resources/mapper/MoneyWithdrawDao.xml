@@ -23,6 +23,13 @@
         where id = #{id}
     </select>
 
+
+    <select id="ListIdPager" resultType="com.gg.microservicecommon.entity.asset.MoneyWithdraw">
+        select
+          id, state, remark, audit_time, apply_time, auditor_id, members_id, amount, fee, trade_code
+        from scp2p.money_withdraw
+        where state =  #{state}
+    </select>
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultType="com.gg.microservicecommon.entity.asset.MoneyWithdraw">
         select

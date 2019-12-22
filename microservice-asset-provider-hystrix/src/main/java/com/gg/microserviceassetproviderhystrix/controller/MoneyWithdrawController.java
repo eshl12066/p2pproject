@@ -136,6 +136,11 @@ public class MoneyWithdrawController {
         return new PageUtils(maps,query.getTotal());
     }
 
-
+    @RequestMapping("ListIdPager")
+    public PageUtils ListIdPager(@RequestParam Map<String,Object> param, HttpServletRequest req, HttpServletResponse resp) {
+        Query query = new Query(param);
+        List<Map> maps = this.moneyWithdrawService.ListIdPager(query);
+        return new PageUtils(maps,query.getTotal());
+    }
 
 }

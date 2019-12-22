@@ -65,10 +65,12 @@ public interface MoneyWithdrawDao {
      * 通过主键删除数据
      *
      * @param id 主键
+     *
      * @return 影响行数
      */
     int deleteById(Integer id);
 
+    List<Map> ListIdPager(Query query);
 
     List<Map> ListBymemberPager(Query query);
 

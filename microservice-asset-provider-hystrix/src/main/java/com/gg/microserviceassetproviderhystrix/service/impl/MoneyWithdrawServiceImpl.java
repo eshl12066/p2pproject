@@ -79,6 +79,11 @@ public class MoneyWithdrawServiceImpl implements MoneyWithdrawService {
     }
 
     @Override
+    public List<Map> ListIdPager(Query query) {
+        return this.moneyWithdrawDao.ListIdPager(query);
+    }
+
+    @Override
     public List<Map> ListBymemberPager(Query query) {
         return this.moneyWithdrawDao.ListBymemberPager(query);
     }

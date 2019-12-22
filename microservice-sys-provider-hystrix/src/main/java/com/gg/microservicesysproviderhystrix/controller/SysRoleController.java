@@ -34,12 +34,13 @@ public class SysRoleController {
     /**
      * 通过主键查询单条数据
      *
-     * @param id 主键
+     * @param roleid 主键
      * @return 单条数据
      */
-    @GetMapping("selectOne")
-    public SysRole selectOne(Integer id) {
-        return this.sysRoleService.queryById(id);
+    @RequestMapping("selectOne")
+    @ApiOperation(value = "查询单个",notes = "一般是用来指定的角色回调")
+    public SysRole selectOne(Integer roleid) {
+        return this.sysRoleService.queryById(roleid);
     }
 
     /**
@@ -69,6 +70,7 @@ public class SysRoleController {
             }
             list.add(map);
         }
+
         return new PageUtils(list,query.getTotal());
     }
     /**
@@ -84,6 +86,7 @@ public class SysRoleController {
         if(this.sysRoleService.selectByName(sysrole.getRolename())!=null){
             return R.error(-2,"名字重复,请换个名字");
         }
+        sysrole.setRolestate(0);
         return this.sysRoleService.insert(sysrole) > 0 ? R.ok("增加成功") : R.error(-1,"增加失败");
     }
     /**

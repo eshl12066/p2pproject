@@ -57,7 +57,7 @@ public interface MoneyWithdrawService {
      * @return 是否成功
      */
     boolean deleteById(Integer id);
-
+    List<Map> ListIdPager(Query query);
     List<Map> ListBymemberPager(Query query);
 
     List<Map> ListByuserPager(Query query);

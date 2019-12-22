@@ -284,7 +284,7 @@ public class SysUserController {
 
             list.add(map);
         }
-        long s = query.getTotal();
+        System.out.println(query.getTotal());
         return new PageUtils(list,query.getTotal());
     }
     public String toUserRole(Integer userid){
@@ -309,15 +309,23 @@ public class SysUserController {
      * @param resp 全局的respons相应
      * @return
      */
+    /**
+     *  增加管理员
+     * @param params 前台传过来的参数集
+     * @param req 全局的request请求
+     * @param resp 全局的respons相应
+     * @return
+     */
     @RequestMapping("userAdd")
     @ApiOperation(value = "增加单个",notes = "增加管理员")
-    public R userAdd(@RequestParam Map<String,Object> params, HttpServletRequest req, HttpServletResponse resp,SysUser sysUser) {
+//    @Log(content = "增加管理员",type = "增加",tableName = "sys_user",role = "3;4")
+    public R userAdd(@RequestParam Map<String,Object> params, HttpServletRequest req, HttpServletResponse resp, SysUser sysUser) {
         if(this.sysUserService.sysLogin(sysUser.getUsername())!=null){
             return R.error(-2,"名字重复,请换个名字");
         }
         String password = req.getParameter("password");
-        String salt = PasswordHelper.createSalt();
-        String credentials = PasswordHelper.createCredentials(password, salt);
+        String salt = MD5Util.md5(MD5Util.md5(password));
+        String credentials = MD5Util.md5(password);
 
         sysUser.setPassword(credentials);
         sysUser.setSalt(salt);
