@@ -77,7 +77,7 @@ public class RefundDetailServiceImpl implements RefundDetailService {
     }
 
     @Override
-    public List<Map<String, Object>> selectrefdPager(Integer id) {
+    public Map selectrefdPager(Integer id) {
         return this.refundDetailDao.selectrefdPager(id);
     }
 
