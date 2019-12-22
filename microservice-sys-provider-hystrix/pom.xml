@@ -18,6 +18,7 @@
         <jjwt.version>0.9.1</jjwt.version>
         <!-- java-jwt -->
         <java-jwt.version>3.4.0</java-jwt.version>
+        <pagehelper.version>5.1.2</pagehelper.version>
     </properties>
     <dependencies>
         <!--lombok,使用slf的注解-->
@@ -136,8 +137,8 @@
         <!--pagehelper分页插件jar包依赖-->
         <dependency>
             <groupId>com.github.pagehelper</groupId>
-            <artifactId>pagehelper-spring-boot-starter</artifactId>
-            <version>1.2.3</version>
+            <artifactId>pagehelper</artifactId>
+            <version>${pagehelper.version}</version>
         </dependency>
 
                 <!-- shiro的使用核心包-->

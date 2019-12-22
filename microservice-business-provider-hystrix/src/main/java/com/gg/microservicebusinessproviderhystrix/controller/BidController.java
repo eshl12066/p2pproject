@@ -225,20 +225,18 @@ public class BidController {
         return null;
     }
 
-
     @RequestMapping("selectAllPager")
     @ApiOperation(value = "查找所有",notes = "")
-    public R selectAllPager(@RequestParam Map<String,Object> params, HttpServletRequest req, HttpServletResponse resp, Bid bid,BidRequest bidRequest) {
+    public PageUtils selectAllPager(@RequestParam Map<String,Object> params, HttpServletRequest req, HttpServletResponse resp, Bid bid,BidRequest bidRequest) {
         Query query = new Query(params);
         List<Map> maps = this.bidService.selectAllPager(query);
+        System.err.println(query.getTotal());
         for (Map map : maps) {
             if(map.get("bid_time")!=null){
                 map.put("bid_time",map.get("bid_time").toString());
             }
         }
-        R r = new R();
-        r.put("data",maps);
-        return r;
+        return new PageUtils(maps,query.getTotal());
     }
 
     @RequestMapping("selectRequest")

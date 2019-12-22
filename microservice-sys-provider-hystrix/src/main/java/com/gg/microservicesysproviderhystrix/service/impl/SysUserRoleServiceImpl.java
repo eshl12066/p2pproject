@@ -1,6 +1,6 @@
 package com.gg.microservicesysproviderhystrix.service.impl;
 
-import com.gg.microservicecommon.entity.sys.Query;
+import com.gg.microservicecommon.util.Query;
 import com.gg.microservicecommon.entity.sys.SysUserRole;
 import com.gg.microservicesysproviderhystrix.dao.SysUserRoleDao;
 import com.gg.microservicesysproviderhystrix.service.SysUserRoleService;

@@ -1,6 +1,6 @@
 package com.gg.microservicesysproviderhystrix.service;
 
-import com.gg.microservicecommon.entity.sys.Query;
+import com.gg.microservicecommon.util.Query;
 import com.gg.microservicecommon.entity.sys.SysUser;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
