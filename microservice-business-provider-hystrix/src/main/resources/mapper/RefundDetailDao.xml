@@ -123,4 +123,48 @@
         delete from scp2p.refund_detail where id = #{id}
     </delete>
 
+
+<!--    ////////////////////////////////////////////-->
+
+
+    <!--根据用户id查询未还款的还款信息（前台展示：加操作还款）-->
+    <select id="selectrefdPager" resultType="java.util.HashMap">
+        select
+        *
+        from scp2p.refund_detail
+        <where>
+            state = 1
+            <if test="id !=null  ">
+                and members_id  = #{id}
+            </if>
+        </where>
+    </select>
+
+
+    <!--根据借款表id查询还款月数-->
+    <select id="selecthkys" resultType="java.lang.Integer">
+        select
+        monthes_return
+        from scp2p.bid_request
+        <where>
+            <if test="bid_request_id !=null  ">
+                id  = #{bid_request_id}
+            </if>
+        </where>
+    </select>
+
+
+    <!--按照还款明细表借贷表id,还款状态查询已还款的期数-->
+    <select id="selectyhys" resultType="java.lang.Integer">
+        select
+        count(*)
+        from scp2p.refund_detail
+        <where>
+            state = 0
+            <if test="bid_request_id !=null  ">
+                and  bid_request_id  = #{bid_request_id}
+            </if>
+        </where>
+    </select>
+
 </mapper>
