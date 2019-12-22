@@ -1,6 +1,7 @@
 package com.gg.microservicebusinessproviderhystrix.service;
 
 import com.gg.microservicecommon.entity.business.RefundDetail;
+import com.gg.microservicecommon.util.Query;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
@@ -39,15 +40,14 @@ public interface RefundDetailService {
      * @param refundDetail 实例对象
      * @return 实例对象
      */
-    RefundDetail insert(RefundDetail refundDetail);
+    int insert(RefundDetail refundDetail);
 
     /**
      * 修改数据
      *
-     * @param refundDetail 实例对象
      * @return 实例对象
      */
-    RefundDetail update(RefundDetail refundDetail);
+    int update(Query query);
 
     /**
      * 通过主键删除数据
@@ -69,5 +69,7 @@ public interface RefundDetailService {
 
     //     <!--按照还款明细表借贷表id,还款状态查询已还款的期数-->
     int selectyhys(Integer bid_request_id);
+
+    int updatebidreq(Integer bid_request_id);
 
 }

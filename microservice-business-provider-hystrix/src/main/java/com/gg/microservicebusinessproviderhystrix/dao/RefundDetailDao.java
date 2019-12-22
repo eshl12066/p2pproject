@@ -2,6 +2,7 @@ package com.gg.microservicebusinessproviderhystrix.dao;
 
 import com.gg.microservicecommon.entity.business.BidRequest;
 import com.gg.microservicecommon.entity.business.RefundDetail;
+import com.gg.microservicecommon.util.Query;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -52,10 +53,9 @@ public interface RefundDetailDao {
     /**
      * 修改数据
      *
-     * @param refundDetail 实例对象
      * @return 影响行数
      */
-    int update(RefundDetail refundDetail);
+    int update(Query query);
 
     /**
      * 通过主键删除数据
@@ -77,5 +77,5 @@ public interface RefundDetailDao {
     int selectyhys(@Param("bid_request_id") Integer bid_request_id);
 
 
-
+    int updatebidreq(@Param("bid_request_id") Integer bid_request_id);
 }

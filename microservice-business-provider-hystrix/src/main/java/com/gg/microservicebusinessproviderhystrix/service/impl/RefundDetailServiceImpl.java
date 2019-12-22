@@ -3,6 +3,7 @@ package com.gg.microservicebusinessproviderhystrix.service.impl;
 import com.gg.microservicebusinessproviderhystrix.dao.RefundDetailDao;
 import com.gg.microservicebusinessproviderhystrix.service.RefundDetailService;
 import com.gg.microservicecommon.entity.business.RefundDetail;
+import com.gg.microservicecommon.util.Query;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -50,21 +51,18 @@ public class RefundDetailServiceImpl implements RefundDetailService {
      * @return 实例对象
      */
     @Override
-    public RefundDetail insert(RefundDetail refundDetail) {
-        this.refundDetailDao.insert(refundDetail);
-        return refundDetail;
+    public int insert(RefundDetail refundDetail) {
+         return this.refundDetailDao.insert(refundDetail);
     }
 
     /**
      * 修改数据
      *
-     * @param refundDetail 实例对象
      * @return 实例对象
      */
     @Override
-    public RefundDetail update(RefundDetail refundDetail) {
-        this.refundDetailDao.update(refundDetail);
-        return this.queryById(refundDetail.getId());
+    public int update(Query query) {
+        return this.refundDetailDao.update(query);
     }
 
     /**
@@ -91,5 +89,10 @@ public class RefundDetailServiceImpl implements RefundDetailService {
     @Override
     public int selectyhys(Integer bid_request_id) {
         return this.refundDetailDao.selectyhys(bid_request_id);
+    }
+
+    @Override
+    public int updatebidreq(Integer bid_request_id) {
+        return this.refundDetailDao.updatebidreq(bid_request_id);
     }
 }

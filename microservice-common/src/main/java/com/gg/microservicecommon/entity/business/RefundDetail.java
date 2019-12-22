@@ -123,4 +123,20 @@ public class RefundDetail implements Serializable {
         this.bidRequestId = bidRequestId;
     }
 
+    @Override
+    public String toString() {
+        return "RefundDetail{" +
+                "id=" + id +
+                ", deadLine=" + deadLine +
+                ", payDate=" + payDate +
+                ", totalAmount=" + totalAmount +
+                ", principal=" + principal +
+                ", interest=" + interest +
+                ", monthIndex=" + monthIndex +
+                ", state=" + state +
+                ", bidRequestTitle='" + bidRequestTitle + '\'' +
+                ", membersId=" + membersId +
+                ", bidRequestId=" + bidRequestId +
+                '}';
+    }
 }
