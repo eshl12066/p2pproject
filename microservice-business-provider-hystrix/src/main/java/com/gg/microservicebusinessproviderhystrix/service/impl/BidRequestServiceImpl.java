@@ -86,7 +86,7 @@ public class BidRequestServiceImpl implements BidRequestService {
      * @return 实例对象
      */
     @Override
-    public Members queryById(Integer id) {
+    public BidRequest queryById(Integer id) {
         return this.bidRequestDao.queryById(id);
     }
 

@@ -60,7 +60,7 @@ public interface BidRequestService {
      * @param id 主键
      * @return 实例对象
      */
-    Members queryById(Integer id);
+    BidRequest queryById(Integer id);
 
     /**
      * 查询多条数据

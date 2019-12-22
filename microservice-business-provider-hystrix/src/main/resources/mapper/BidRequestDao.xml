@@ -77,7 +77,7 @@
     <!--查询单个-->
     <select id="queryById" resultMap="BidRequestMap">
         select
-          id, return_type, bid_request_type, bid_request_state, bid_request_amount, current_rate, monthes_return, bid_count, total_reward_amount, current_sum, title, description, note, disable_date, members_id, disable_days, publish_time, remark, audit_time, apply_time, auditor_id, new_column
+          id, return_type, bid_request_type, bid_request_state, bid_request_amount, current_rate, monthes_return, bid_count, total_reward_amount, current_sum, title, description, note, disable_date, members_id, disable_days, publish_time, remark, audit_time, apply_time, auditor_id
         from scp2p.bid_request
         where id = #{id}
     </select>
@@ -85,7 +85,7 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="BidRequestMap">
         select
-          id, return_type, bid_request_type, bid_request_state, bid_request_amount, current_rate, monthes_return, bid_count, total_reward_amount, current_sum, title, description, note, disable_date, members_id, disable_days, publish_time, remark, audit_time, apply_time, auditor_id, new_column
+          id, return_type, bid_request_type, bid_request_state, bid_request_amount, current_rate, monthes_return, bid_count, total_reward_amount, current_sum, title, description, note, disable_date, members_id, disable_days, publish_time, remark, audit_time, apply_time, auditor_id
         from scp2p.bid_request
         limit #{offset}, #{limit}
     </select>

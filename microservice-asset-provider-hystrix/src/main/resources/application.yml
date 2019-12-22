@@ -68,7 +68,7 @@ spring:
       suffix: .jsp
   redis:
     database: 0
-    host: 192.168.214.134
+    host: 192.168.183.151
     port: 6379
     password: 123456
     jedis:

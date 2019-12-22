@@ -75,4 +75,6 @@ public interface RefundDetailService {
 
     int updatebidreq(Integer bid_request_id);
 
+    int updatestate(Integer id);
+
 }

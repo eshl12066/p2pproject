@@ -171,11 +171,17 @@
     <update id="updatebidreq">
         update scp2p.bid_request
         <set>
-            <if test="state != null">
                 bid_request_state = 7,
-            </if>
         </set>
         where id = #{bid_request_id}
     </update>
 
+    <!--通过主键修改数据-->
+    <update id="updatestate">
+        update scp2p.refund_detail
+        <set>
+                state = 0
+        </set>
+        where id = #{id}
+    </update>
 </mapper>

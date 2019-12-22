@@ -99,4 +99,9 @@ public class RefundDetailServiceImpl implements RefundDetailService {
     public int updatebidreq(Integer bid_request_id) {
         return this.refundDetailDao.updatebidreq(bid_request_id);
     }
+
+    @Override
+    public int updatestate(Integer id) {
+        return this.refundDetailDao.updatestate(id);
+    }
 }

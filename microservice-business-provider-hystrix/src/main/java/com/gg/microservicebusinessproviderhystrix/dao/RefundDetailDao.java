@@ -80,4 +80,6 @@ public interface RefundDetailDao {
 
 
     int updatebidreq(@Param("bid_request_id") Integer bid_request_id);
+
+    int updatestate(@Param("id") Integer id);
 }

@@ -150,17 +150,6 @@ public class BidController {
         bid.setBidTime(date);
         int i = this.bidService.bidAdd(bid);
 
-//        //修改借贷表
-//        bidRequest.setId(bid.getBidRequestId());
-//        System.out.println(bidRequest.getId());
-//        bidRequest.setBidCount(bidRequest.getBidCount()+1);//投标人数 +1
-//        bidRequest.setCurrentSum(bidRequest.getCurrentSum()+bid.getAvailableAmount());//借贷表的当前投资总数 增加
-//        if(bidRequest.getBidRequestAmount() == bidRequest.getCurrentSum()){
-//            bidRequest.setBidRequestState(3);
-//        }else{
-//            bidRequest.setBidRequestState(2);
-//        }
-//        BidRequest update = this.bidRequestService.update(bidRequest);
         return i > 0 ? R.ok("增加成功") : R.error(-1,"增加失败");
     }
 

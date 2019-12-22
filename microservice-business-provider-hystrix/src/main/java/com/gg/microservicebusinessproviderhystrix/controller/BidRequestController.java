@@ -75,7 +75,7 @@ public class BidRequestController {
      * @return 单条数据
      */
     @RequestMapping("selectOne")
-    public Members selectOne(Integer id) {
+    public BidRequest selectOne(Integer id) {
         return this.bidRequestService.queryById(id);
     }
 
