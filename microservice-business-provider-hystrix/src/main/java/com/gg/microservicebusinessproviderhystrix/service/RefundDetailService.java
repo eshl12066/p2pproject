@@ -1,9 +1,11 @@
 package com.gg.microservicebusinessproviderhystrix.service;
 
 import com.gg.microservicecommon.entity.business.RefundDetail;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * (RefundDetail)表服务接口
@@ -54,5 +56,18 @@ public interface RefundDetailService {
      * @return 是否成功
      */
     boolean deleteById(Integer id);
+
+
+
+//    <!--根据用户id查询未还款的还款信息（前台展示：加操作还款）-->
+
+    List<Map<String,Object>> selectrefdPager( Integer id);
+
+
+    // <!--根据借款表id查询还款月数-->
+    int selecthkys(Integer bid_request_id);
+
+    //     <!--按照还款明细表借贷表id,还款状态查询已还款的期数-->
+    int selectyhys(Integer bid_request_id);
 
 }

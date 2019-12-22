@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 /**
  * (RefundDetail)表服务实现类
@@ -75,5 +76,20 @@ public class RefundDetailServiceImpl implements RefundDetailService {
     @Override
     public boolean deleteById(Integer id) {
         return this.refundDetailDao.deleteById(id) > 0;
+    }
+
+    @Override
+    public List<Map<String, Object>> selectrefdPager(Integer id) {
+        return this.refundDetailDao.selectrefdPager(id);
+    }
+
+    @Override
+    public int selecthkys(Integer bid_request_id) {
+        return this.refundDetailDao.selecthkys(bid_request_id);
+    }
+
+    @Override
+    public int selectyhys(Integer bid_request_id) {
+        return this.refundDetailDao.selectyhys(bid_request_id);
     }
 }
