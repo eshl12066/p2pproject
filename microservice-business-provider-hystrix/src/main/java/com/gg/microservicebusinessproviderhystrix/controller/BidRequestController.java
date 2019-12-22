@@ -113,8 +113,8 @@ public class BidRequestController {
     /**
      * 删除借贷
      * @param params 前台传过来的参数集
-     * @param req 全局的request请求
-     * @param resp 全局的respons相应
+     * @param req
+     * @param resp 全局的respons相应全局的request请求
      * @return
      */
     @RequestMapping("bidRequestDel")

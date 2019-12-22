@@ -247,4 +247,11 @@
         delete from scp2p.bid_request where id = #{id}
     </delete>
 
+
+
+
+
+
+
+
 </mapper>

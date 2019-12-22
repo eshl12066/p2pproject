@@ -1,9 +1,11 @@
 package com.gg.microservicebusinessproviderhystrix.dao;
 
+import com.gg.microservicecommon.entity.business.BidRequest;
 import com.gg.microservicecommon.entity.business.RefundDetail;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * (RefundDetail)表数据库访问层
@@ -62,5 +64,18 @@ public interface RefundDetailDao {
      * @return 影响行数
      */
     int deleteById(Integer id);
+
+//    <!--根据用户id查询未还款的还款信息（前台展示：加操作还款）-->
+
+    List<Map<String,Object>> selectrefdPager(@Param("id") Integer id);
+
+
+// <!--根据借款表id查询还款月数-->
+    int selecthkys(@Param("bid_request_id") Integer bid_request_id);
+
+//     <!--按照还款明细表借贷表id,还款状态查询已还款的期数-->
+    int selectyhys(@Param("bid_request_id") Integer bid_request_id);
+
+
 
 }
