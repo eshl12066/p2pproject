@@ -67,7 +67,7 @@ public interface RefundDetailDao {
 
 //    <!--根据用户id查询未还款的还款信息（前台展示：加操作还款）-->
 
-    Map selectrefdPager(@Param("id") Integer id);
+    List<Map<String, Object>> selectrefd(Query query);
 
 
 // <!--根据借款表id查询还款月数-->
