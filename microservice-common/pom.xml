@@ -68,7 +68,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.44</version>
+            <version>8.0.16</version>
         </dependency>
         <!--这是整合 druid源 可以查看请求路径-->
         <dependency>
